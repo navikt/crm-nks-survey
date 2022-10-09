@@ -2,11 +2,16 @@
     "packageDirectories": [
         {
             "path": "force-app",
-            "default": true
+            "default": true,
+            "package": "crm-nks-survey",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "55.0",
-    "packageAliases": {}
+    "packageAliases": {
+        "crm-nks-survey": "0Ho7U0000000014SAA"
+    }
 }
