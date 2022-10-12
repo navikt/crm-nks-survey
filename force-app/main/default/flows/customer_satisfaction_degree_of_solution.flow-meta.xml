@@ -24,58 +24,12 @@
             <stringValue>Nei</stringValue>
         </value>
     </choices>
-    <decisions>
-        <name>d_3b49e973_6e07_45e4_a739_bec82a6bfda0</name>
-        <label>my_decision</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>p_40eb9ce2_e161_4f52_80a1_598a523fc3c3</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Next Page</defaultConnectorLabel>
-        <rules>
-            <name>r_786c051f_2924_4a0a_b19a_1a7badcc4d7e</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>RadioButton</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>q_2ff57d21_f15b_4133_93a3_16641bac06fc</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>c_522197c0_be2e_429f_8234_eb8422382661</elementReference>
-                </rightValue>
-            </conditions>
-            <label>my_rule</label>
-        </rules>
-    </decisions>
     <interviewLabel>Customer Satisfaction - Degree of Solution</interviewLabel>
     <label>Customer Satisfaction - Degree of Solution</label>
     <processMetadataValues>
         <name>BrandingSet</name>
         <value>
-            <stringValue>sb_customer_satisfaction_degree_o_710b48df_d51c_460c_9abf_6a2f53694eb2</stringValue>
+            <stringValue>sb_customer_satisfaction_degree_o_543b7da2_2c78_4b8b_8657_b69a64151325</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -104,31 +58,6 @@
     </processMetadataValues>
     <processType>Survey</processType>
     <screens>
-        <name>p_40eb9ce2_e161_4f52_80a1_598a523fc3c3</name>
-        <label>Feedback</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <processMetadataValues>
-                <name>autoProgressAction</name>
-                <value>
-                    <stringValue>NONE</stringValue>
-                </value>
-            </processMetadataValues>
-            <name>q_78a3f9fd_8198_4bc7_99c3_3efad73e41ea</name>
-            <dataType>String</dataType>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: verdana; font-size: 14px;&quot;&gt;Vi liker dine kommentarer. Skriv gjerne om hva du ikke var fornøyd med.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
-        <pausedText>To pick up where you left off, refresh this page, or open the survey again.</pausedText>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>p_a2e96b81_49a2_4778_91c1_9fa0acc0bf1f</name>
         <label>Rating</label>
         <locationX>0</locationX>
@@ -136,14 +65,11 @@
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
-        <connector>
-            <targetReference>d_3b49e973_6e07_45e4_a739_bec82a6bfda0</targetReference>
-        </connector>
         <fields>
             <processMetadataValues>
                 <name>autoProgressAction</name>
                 <value>
-                    <stringValue>NEXT</stringValue>
+                    <stringValue>FINISH</stringValue>
                 </value>
             </processMetadataValues>
             <name>q_2ff57d21_f15b_4133_93a3_16641bac06fc</name>
@@ -161,7 +87,7 @@
         <showHeader>true</showHeader>
     </screens>
     <startElementReference>p_a2e96b81_49a2_4778_91c1_9fa0acc0bf1f</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>thankYouDescriptionTextTemplate</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>

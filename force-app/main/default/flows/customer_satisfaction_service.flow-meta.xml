@@ -24,58 +24,12 @@
             <stringValue>Ja</stringValue>
         </value>
     </choices>
-    <decisions>
-        <name>d_74dae8c5_0987_4faf_83c3_4d1a08124aea</name>
-        <label>my_decision</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>p_128b797c_2cd2_4f77_8b58_af34454ddcc6</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Next Page</defaultConnectorLabel>
-        <rules>
-            <name>r_5bc98e95_05e6_4228_a42c_872a1d8ff825</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>RadioButton</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>q_2e56a3b9_d169_46ae_a07a_a28c8576efdc</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>c_cf439b20_c19f_49e8_b54b_e3c49f59063d</elementReference>
-                </rightValue>
-            </conditions>
-            <label>my_rule</label>
-        </rules>
-    </decisions>
     <interviewLabel>Customer Satisfaction - Service</interviewLabel>
     <label>Customer Satisfaction - Service</label>
     <processMetadataValues>
         <name>BrandingSet</name>
         <value>
-            <stringValue>sb_customer_satisfaction_service_a63d84f8_2522_4059_998f_5962ed1f50f1</stringValue>
+            <stringValue>sb_customer_satisfaction_service_4f1a6888_aeab_427a_a5ad_9c0b2f0ca4c6</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -87,7 +41,7 @@
     <processMetadataValues>
         <name>autoProgressEnabled</name>
         <value>
-            <booleanValue>true</booleanValue>
+            <booleanValue>false</booleanValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -104,8 +58,8 @@
     </processMetadataValues>
     <processType>Survey</processType>
     <screens>
-        <name>p_128b797c_2cd2_4f77_8b58_af34454ddcc6</name>
-        <label>Feedback</label>
+        <name>p_d8bff559_cb53_4bb5_b1bd_6374fdefc2ce</name>
+        <label>Rating</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
@@ -118,34 +72,6 @@
                     <stringValue>NONE</stringValue>
                 </value>
             </processMetadataValues>
-            <name>q_f498fb55_6e75_4d89_911d_e325394927c3</name>
-            <dataType>String</dataType>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: verdana; font-size: 14px;&quot;&gt;Vi liker dine kommentarer. Skriv gjerne om hva du ikke var fornøyd med.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
-        <pausedText>To pick up where you left off, refresh this page, or open the survey again.</pausedText>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>p_d8bff559_cb53_4bb5_b1bd_6374fdefc2ce</name>
-        <label>Rating</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>d_74dae8c5_0987_4faf_83c3_4d1a08124aea</targetReference>
-        </connector>
-        <fields>
-            <processMetadataValues>
-                <name>autoProgressAction</name>
-                <value>
-                    <stringValue>NEXT</stringValue>
-                </value>
-            </processMetadataValues>
             <name>q_2e56a3b9_d169_46ae_a07a_a28c8576efdc</name>
             <choiceReferences>c_cf439b20_c19f_49e8_b54b_e3c49f59063d</choiceReferences>
             <choiceReferences>c_03485653_815c_4251_9917_9c8d0216caf6</choiceReferences>
@@ -156,12 +82,13 @@
             <fieldType>ComponentChoice</fieldType>
             <isRequired>false</isRequired>
         </fields>
+        <nextOrFinishButtonLabel>Send</nextOrFinishButtonLabel>
         <pausedText>To pick up where you left off, refresh this page, or open the survey again.</pausedText>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <startElementReference>p_d8bff559_cb53_4bb5_b1bd_6374fdefc2ce</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>thankYouDescriptionTextTemplate</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
