@@ -24,12 +24,12 @@
             <stringValue>Nei</stringValue>
         </value>
     </choices>
-    <interviewLabel>Customer Satisfaction - Degree of Solution</interviewLabel>
-    <label>Customer Satisfaction - Degree of Solution</label>
+    <interviewLabel>NKS Solution Survey</interviewLabel>
+    <label>NKS Solution Survey</label>
     <processMetadataValues>
         <name>BrandingSet</name>
         <value>
-            <stringValue>sb_customer_satisfaction_degree_o_543b7da2_2c78_4b8b_8657_b69a64151325</stringValue>
+            <stringValue>sb_nks_solution_survey_9e8cfcb7_86c9_4a0a_a47d_2e00819bd004</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -59,7 +59,7 @@
     <processType>Survey</processType>
     <screens>
         <name>p_a2e96b81_49a2_4778_91c1_9fa0acc0bf1f</name>
-        <label>Rating</label>
+        <label>Feedback Page</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
@@ -87,7 +87,7 @@
         <showHeader>true</showHeader>
     </screens>
     <startElementReference>p_a2e96b81_49a2_4778_91c1_9fa0acc0bf1f</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <textTemplates>
         <name>thankYouDescriptionTextTemplate</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>

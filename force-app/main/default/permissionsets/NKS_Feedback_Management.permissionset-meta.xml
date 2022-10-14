@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <!--
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.NKS_Survey_Submission_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>SurveyInvitation.NKS_Participants_Percentage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>NKS - Feedback management</label>
     <license>Salesforce</license>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
@@ -44,5 +62,4 @@
         <tab>standard-Survey</tab>
         <visibility>Visible</visibility>
     </tabSettings>
--->
 </PermissionSet>

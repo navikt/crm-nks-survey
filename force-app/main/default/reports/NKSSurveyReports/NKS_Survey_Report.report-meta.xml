@@ -28,6 +28,9 @@
     <columns>
         <field>SurveyQuestion.SurveyQuestionResponses$CreatedDate</field>
     </columns>
+    <columns>
+        <field>SurveyQuestion.SurveyQuestionResponses$LastModifiedDate</field>
+    </columns>
     <format>Matrix</format>
     <groupingsAcross>
         <dateGranularity>Day</dateGranularity>
@@ -39,14 +42,14 @@
         <field>SurveyQuestion$Name</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>NKS Service Survey Report</name>
+    <name>NKS Survey Report</name>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
     <reportType>NKS_Survey_Questions__c</reportType>
     <scope>organization</scope>
-    <showDetails>false</showDetails>
+    <showDetails>true</showDetails>
     <showGrandTotal>false</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>

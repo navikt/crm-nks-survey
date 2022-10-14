@@ -24,12 +24,12 @@
             <stringValue>Ja</stringValue>
         </value>
     </choices>
-    <interviewLabel>Customer Satisfaction - Service</interviewLabel>
-    <label>Customer Satisfaction - Service</label>
+    <interviewLabel>NKS Service Survey</interviewLabel>
+    <label>NKS Service Survey</label>
     <processMetadataValues>
         <name>BrandingSet</name>
         <value>
-            <stringValue>sb_customer_satisfaction_service_4f1a6888_aeab_427a_a5ad_9c0b2f0ca4c6</stringValue>
+            <stringValue>sb_nks_service_survey_52cb7efb_cdd0_4a3d_9760_181dca231c3c</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -59,7 +59,7 @@
     <processType>Survey</processType>
     <screens>
         <name>p_d8bff559_cb53_4bb5_b1bd_6374fdefc2ce</name>
-        <label>Rating</label>
+        <label>Feedback Page</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
