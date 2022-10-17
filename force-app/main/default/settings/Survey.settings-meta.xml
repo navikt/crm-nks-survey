@@ -2,5 +2,5 @@
 <SurveySettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <enableIndustriesCxmEnabled>false</enableIndustriesCxmEnabled>
     <enableSurvey>true</enableSurvey>
-    <enableSurveyOwnerCanManageResponse>false</enableSurveyOwnerCanManageResponse>
+    <enableSurveyOwnerCanManageResponse>true</enableSurveyOwnerCanManageResponse>
 </SurveySettings>
