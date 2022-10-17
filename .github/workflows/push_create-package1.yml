@@ -21,7 +21,7 @@ jobs:
       # Install SFDX
       - name: Install SFDX
         run: |
-          npm install --global sfdx-cli@latest-rc
+          npm install --global sfdx-cli@170-rc
 
       # Authenticate prod
       - name: Authenticate prod
