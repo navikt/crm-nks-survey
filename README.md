@@ -9,8 +9,8 @@ Dette repoet er opprettet for å ta i bruk Salesforce Survey funksjonaliteten fo
 
 Dette repoet er avhengig av følgende pakker:
 
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
+-   [crm-platform-base](https://github.com/navikt/crm-platform-base)
+-   [crm-henvendelse-base](https://github.com/navikt/crm-henvendelse-base)
 
 # Komme i gang
 

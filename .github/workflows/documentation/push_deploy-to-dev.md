@@ -14,5 +14,5 @@ This workflows automatically runs whenever someone pushes or merges a PR into th
 - Environment secrets
     - `secrets.CRM_PROD_SFDX_URL`
     - `secrets.DEV_SFDX_URL`
-    - `secrets.CRM_PACKAGE_KEY`
-        - Needed to install dependant packages
+- `secrets.PACKAGE_KEY`
+    - Needed to install dependant packages
