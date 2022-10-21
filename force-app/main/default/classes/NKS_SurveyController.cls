@@ -21,7 +21,7 @@ public with sharing class NKS_SurveyController {
                 throw new SurveyException('This user did not visit the condition for sending survey.');
             } 
             */
-            limitResponses = [SELECT COUNT() FROM SurveyResponse WHERE ResponseStatus = 'Completed'];
+            limitResponses = [SELECT COUNT() FROM SurveyResponse WHERE Status = 'Completed'];
             if (limitResponses > 300) {
                 throw new SurveyException('Limit for SurveyResponses has exceeded.');
             } else {
