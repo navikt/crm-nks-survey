@@ -1,0 +1,48 @@
+.body {
+    background-color: #f3f3f3;
+    font-family: sans-serif;
+    /*height: 65vh;*/
+}
+
+.surveyLayout {
+    /*height: 100%;*/
+}
+
+.box {
+    background-color: #ffffff;
+    border: solid 1px;
+    border-radius: 0.25rem;
+    border-color: lightgrey;
+}
+
+.icon-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    --sds-c-icon-color-foreground-default: black;
+}
+
+.link {
+    text-decoration: underline;
+}
+
+.image {
+    width: 4rem;
+    height: 4rem;
+}
+
+.title {
+    font-size: 2.16rem;
+}
+
+.nav {
+    border: 0;
+}
+
+.home {
+    width: 1.25rem;
+    height: 1.25rem;
+}

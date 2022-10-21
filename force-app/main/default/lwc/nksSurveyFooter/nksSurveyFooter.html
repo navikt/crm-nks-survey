@@ -1,0 +1,25 @@
+<template>
+    <div class="body">
+        <lightning-layout
+            multiple-rows="true"
+            class="slds-var-p-vertical_xx-large slds-var-p-horizontal_x-large footerLayout"
+        >
+            <lightning-layout-item size="12" class="slds-var-p-top_small slds-var-p-bottom_xx-large">
+                <a href="https://www.nav.no" class="slds-text-link_reset">
+                    <lightning-icon
+                        icon-name="utility:back"
+                        size="small"
+                        class="slds-var-p-bottom_small icon"
+                    ></lightning-icon>
+                </a>
+                &nbsp;<span>Tilbake til nav.no</span>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="">
+                <div class="slds-var-p-bottom_small slds-var-p-top_xx-large">
+                    <img src={logo} alt="NAV-logo" class="logo" />
+                    <p class="slds-var-p-top_x-small">Arbeids- og velferdsetaten</p>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>
