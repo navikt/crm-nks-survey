@@ -3,9 +3,9 @@
     <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
-    <communityRoles/>
+    <communityRoles />
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
-    <emailSenderAddress>sara.mohammadi@nav.no</emailSenderAddress>
+    <emailSenderAddress>fakeemail@nav.no.scratchorg</emailSenderAddress>
     <emailSenderName>Feedback</emailSenderName>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>true</enableDirectMessages>
@@ -47,6 +47,6 @@
         <defaultTab>home</defaultTab>
         <standardTab>Chatter</standardTab>
     </tabs>
-    <urlPathPrefix>vforcesite</urlPathPrefix>
+    <urlPathPrefix>tilbakemelding</urlPathPrefix>
     <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
 </Network>
