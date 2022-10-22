@@ -11,7 +11,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>NKS - Feedback management</label>
+    <label>NKS - Feedback Management</label>
     <license>Salesforce</license>
     <objectPermissions>
         <allowCreate>false</allowCreate>

@@ -28,9 +28,6 @@
     <columns>
         <field>SurveyQuestion.SurveyQuestionResponses$CreatedDate</field>
     </columns>
-    <columns>
-        <field>SurveyQuestion.SurveyQuestionResponses$LastModifiedDate</field>
-    </columns>
     <format>Matrix</format>
     <groupingsAcross>
         <dateGranularity>Day</dateGranularity>
