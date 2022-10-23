@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>NKS_SurveyController</members>
-		<members>NKS_SurveyControllerTest</members>
+		<members>*</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -30,9 +29,7 @@
 		<name>ContentAsset</name>
 	</types>
 	<types>
-		<members>SurveyInvitation.NKS_Participants_Percentage__c</members>
-		<members>Thread_Close_Event__e.Message__c</members>
-		<members>Thread_Close_Event__e.ThreadId__c</members>
+		<members>*</members>
 		<name>CustomField</name>
 	</types>
 	<types>
@@ -48,13 +45,11 @@
 		<name>ExperienceBundle</name>
 	</types>
 	<types>
-		<members>NKS_Feedback_Manager</members>
+		<members>*</members>
 		<name>Group</name>
 	</types>
 	<types>
-		<members>nksSurveyFooter</members>
-		<members>nksSurveyHeader</members>
-		<members>nksSurveyMain</members>
+		<members>*</members>
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
@@ -78,9 +73,7 @@
 		<name>NetworkBranding</name>
 	</types>
 	<types>
-		<members>NKS_Feedback_Management</members>
-		<members>NKS_Survey_Participants</members>
-		<members>NKS_Survey_Reports</members>
+		<members>*</members>
 		<name>PermissionSet</name>
 	</types>
 	<types>
@@ -92,39 +85,35 @@
 		<name>PlatformEventChannelMember</name>
 	</types>
 	<types>
-		<members>Feedback Profile</members>
-		<members>Guest</members>
-		<members>Guest License User</members>
+		<members>*</members>
 		<name>Profile</name>
 	</types>
 	<types>
-		<members>Feedback_Profile_profilePasswordPolicy1666449298812</members>
+		<members>*</members>
 		<name>ProfilePasswordPolicy</name>
 	</types>
 	<types>
-		<members>Feedback_Profile_profileSessionSetting1666449298972</members>
+		<members>*</members>
 		<name>ProfileSessionSetting</name>
 	</types>
 	<types>
-		<members>NKSSurveyReports/NKS_Survey_Report</members>
+		<members>*</members>
 		<name>Report</name>
 	</types>
 	<types>
 		<members>*</members>
 		<name>ReportType</name>
 	</types>
+    <types>
+		<members>*</members>
+		<name>SiteDotCom</name>
+	</types>
 	<types>
-		<members>Survey</members>
+		<members>*</members>
 		<name>Settings</name>
 	</types>
 	<types>
-		<members>NAV_ikonpakke_png</members>
-		<members>SiteSamples</members>
-		<members>homeIcon</members>
-		<members>navLogoRed</members>
-		<members>navLogoWhite</members>
-		<members>newsIcon</members>
-		<name>StaticResource</name>
+		<members>*</members>
 	</types>
 	<version>55.0</version>
 </Package>
