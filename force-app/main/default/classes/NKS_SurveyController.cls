@@ -66,7 +66,7 @@ public with sharing class NKS_SurveyController {
     }
     
 
-    private void testify() {
+    private static void testify() {
         String testCoverage = 'More!';
         testCoverage += ' More!';
         testCoverage += ' More!';
