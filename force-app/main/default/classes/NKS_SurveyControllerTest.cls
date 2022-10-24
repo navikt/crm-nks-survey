@@ -28,11 +28,9 @@ public with sharing class NKS_SurveyControllerTest {
         NKS_SurveyController.WrapperResult testWrapper;
         Test.startTest();
         NKS_SurveyController.simulateException(new DmlException('ERROR'));
-            testWrapper = NKS_SurveyController.createSurveyInvitation();
+        testWrapper = NKS_SurveyController.createSurveyInvitation();
         Test.stopTest();
 
         System.assertEquals(true, testWrapper.error);
-
-
     }
 }

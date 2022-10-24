@@ -20,7 +20,8 @@ public with sharing class NKS_SurveyController {
         WrapperResult wrapper = new WrapperResult(null, null);
 
         try {
-            if(simulatedException != null) throw simulatedException;
+            if (simulatedException != null)
+                throw simulatedException;
 
             communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
             surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
