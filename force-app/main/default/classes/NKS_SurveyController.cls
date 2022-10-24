@@ -10,46 +10,56 @@ public with sharing class NKS_SurveyController {
         String communityId;
         String surveyId;
         String result; // result can be surveyInvitationLink or errorMessage
+        Integer responseLimit;
         WrapperResult wrapper = new WrapperResult(null, null);
 
-        try {
-            communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
-            surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
+        responseLimit = [SELECT COUNT() FROM SurveyResponse];
+        if (responseLimit > 300) {
+            throw new SurveyException('Limit exceeded.');
+        } else {
+            try {
+                communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
+                surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
 
-            SurveyInvitation surveyInvitation = new SurveyInvitation();
-            surveyInvitation.CommunityId = communityId;
-            surveyInvitation.OptionsAllowGuestUserResponse = true;
-            surveyInvitation.OptionsCollectAnonymousResponse = true;
-            surveyInvitation.SurveyId = surveyId;
-            surveyInvitation.Name = 'Survey Invitation';
-            if (!Test.isRunningTest())
-                insert surveyInvitation;
+                SurveyInvitation surveyInvitation = new SurveyInvitation();
+                surveyInvitation.CommunityId = communityId;
+                surveyInvitation.OptionsAllowGuestUserResponse = true;
+                surveyInvitation.OptionsCollectAnonymousResponse = true;
+                surveyInvitation.SurveyId = surveyId;
+                surveyInvitation.Name = 'Survey Invitation';
+                if (!Test.isRunningTest())
+                    insert surveyInvitation;
 
-            List<SurveyInvitation> surveyInvitaionRecords = [
-                SELECT Id, UUID
-                FROM SurveyInvitation
-                WHERE Id = :surveyInvitation.Id
-            ];
-            string uniqueSurveyInvitationId = surveyInvitaionRecords.isEmpty() ? '' : surveyInvitaionRecords[0].UUID;
-            string sur = surveyInvitaionRecords.isEmpty() ? '' : surveyInvitaionRecords[0].Id;
-            result =
-                getCommunityURL() +
-                '/survey/runtimeApp.app?invitationId=' +
-                sur +
-                '&surveyName=nks_service_survey&UUID=' +
-                uniqueSurveyInvitationId;
+                List<SurveyInvitation> surveyInvitaionRecords = [
+                    SELECT Id, UUID
+                    FROM SurveyInvitation
+                    WHERE Id = :surveyInvitation.Id
+                ];
+                string uniqueSurveyInvitationId = surveyInvitaionRecords.isEmpty()
+                    ? ''
+                    : surveyInvitaionRecords[0].UUID;
+                string sur = surveyInvitaionRecords.isEmpty() ? '' : surveyInvitaionRecords[0].Id;
+                result =
+                    getCommunityURL() +
+                    '/survey/runtimeApp.app?invitationId=' +
+                    sur +
+                    '&surveyName=nks_service_survey&UUID=' +
+                    uniqueSurveyInvitationId;
 
-            // System.debug('Survey Invitaion Link: ' + json.serialize(result));
-            wrapper = new WrapperResult(false, result);
+                // System.debug('Survey Invitaion Link: ' + json.serialize(result));
+                wrapper = new WrapperResult(false, result);
 
-            return wrapper;
-        } catch (exception ex) {
-            System.debug('The following exception has occurred while inserting SurveyInvitation: ' + ex.getMessage());
-            result = ex.getMessage();
-            wrapper = new WrapperResult(true, ex.getMessage());
-            return wrapper;
-        } finally {
-            return wrapper;
+                return wrapper;
+            } catch (exception ex) {
+                System.debug(
+                    'The following exception has occurred while inserting SurveyInvitation: ' + ex.getMessage()
+                );
+                result = ex.getMessage();
+                wrapper = new WrapperResult(true, ex.getMessage());
+                return wrapper;
+            } finally {
+                return wrapper;
+            }
         }
     }
 
@@ -63,5 +73,8 @@ public with sharing class NKS_SurveyController {
             this.error = error;
             this.res = res;
         }
+    }
+
+    private class SurveyException extends Exception {
     }
 }
