@@ -9,7 +9,7 @@ public with sharing class NKS_SurveyController {
 
     @TestVisible
     public static void simulateException(Exception ex) {
-        this.simulatedException = ex;
+        simulatedException = ex;
     }
 
     @AuraEnabled
