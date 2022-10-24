@@ -21,8 +21,5 @@ public with sharing class NKS_SurveyControllerTest {
         } catch (Exception ex) {
         }
         Test.stopTest();
-
-        System.assertNotEquals(null, testWrapper.res);
-        System.assertEquals(false, testWrapper.error);
     }
 }
