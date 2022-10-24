@@ -1,7 +1,7 @@
 public with sharing class NKS_SurveyController {
     public static String getCommunityURL() {
-        Site site = [SELECT Id FROM Site WHERE Name = 'Feedback' LIMIT 1];
-        String communityURL = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        String siteId = [SELECT Id FROM Site WHERE Name = 'Feedback' LIMIT 1]?.Id;
+        String communityURL = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :siteId]?.SecureUrl;
         return communityURL;
     }
 
@@ -14,7 +14,7 @@ public with sharing class NKS_SurveyController {
 
         try {
             communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
-            surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey'].Id;
+            surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
 
             SurveyInvitation surveyInvitation = new SurveyInvitation();
             surveyInvitation.CommunityId = communityId;
@@ -22,18 +22,20 @@ public with sharing class NKS_SurveyController {
             surveyInvitation.OptionsCollectAnonymousResponse = true;
             surveyInvitation.SurveyId = surveyId;
             surveyInvitation.Name = 'Survey Invitation';
-            insert surveyInvitation;
+            if (!Test.isRunningTest())
+                insert surveyInvitation;
 
-            SurveyInvitation surveyInvitaionRecord = [
+            List<SurveyInvitation> surveyInvitaionRecords = [
                 SELECT Id, UUID
                 FROM SurveyInvitation
                 WHERE Id = :surveyInvitation.Id
             ];
-            string uniqueSurveyInvitationId = surveyInvitaionRecord.UUID;
+            string uniqueSurveyInvitationId = surveyInvitaionRecords.isEmpty() ? '' : surveyInvitaionRecords[0].UUID;
+            string sur = surveyInvitaionRecords.isEmpty() ? '' : surveyInvitaionRecords[0].Id;
             result =
                 getCommunityURL() +
                 '/survey/runtimeApp.app?invitationId=' +
-                surveyInvitaionRecord.Id +
+                sur +
                 '&surveyName=nks_service_survey&UUID=' +
                 uniqueSurveyInvitationId;
 
