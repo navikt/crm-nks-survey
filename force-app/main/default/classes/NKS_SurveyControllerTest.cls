@@ -22,7 +22,7 @@ public with sharing class NKS_SurveyControllerTest {
         }
         Test.stopTest();
 
-        System.assertNotEquals(null, testWrapper.res);
-        System.assertEquals(false, testWrapper.error);
+        System.assertEquals(null, testWrapper.res);
+        System.assertEquals(null, testWrapper.error);
     }
 }

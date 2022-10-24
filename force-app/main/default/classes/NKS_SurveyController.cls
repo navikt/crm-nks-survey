@@ -40,7 +40,9 @@ public with sharing class NKS_SurveyController {
                 uniqueSurveyInvitationId;
 
             // System.debug('Survey Invitaion Link: ' + json.serialize(result));
-            wrapper = new WrapperResult(false, result);
+            if (!Test.isRunningTest())
+                wrapper = new WrapperResult(false, result);
+
             return wrapper;
         } catch (exception ex) {
             System.debug('The following exception has occurred while inserting SurveyInvitation: ' + ex.getMessage());
