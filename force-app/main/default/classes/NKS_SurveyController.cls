@@ -23,6 +23,8 @@ public with sharing class NKS_SurveyController {
             if (simulatedException != null)
                 throw simulatedException;
 
+            testify();
+
             communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
             surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
 
