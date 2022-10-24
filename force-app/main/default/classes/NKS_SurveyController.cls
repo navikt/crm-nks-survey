@@ -5,6 +5,13 @@ public with sharing class NKS_SurveyController {
         return communityURL;
     }
 
+    private static Exception simulatedException;
+
+    @TestVisible
+    public static void simulateException(Exception ex) {
+        simulatedException = ex;
+    }
+
     @AuraEnabled
     public static WrapperResult createSurveyInvitation() {
         String communityId;
@@ -13,6 +20,9 @@ public with sharing class NKS_SurveyController {
         WrapperResult wrapper = new WrapperResult(null, null);
 
         try {
+            if (simulatedException != null)
+                throw simulatedException;
+
             communityId = [SELECT Id FROM Network WHERE Name = 'Feedback'].Id;
             surveyId = [SELECT Id FROM Survey WHERE DeveloperName = 'nks_service_survey']?.Id;
 
