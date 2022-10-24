@@ -40,8 +40,11 @@ public with sharing class NKS_SurveyController {
                 uniqueSurveyInvitationId;
 
             // System.debug('Survey Invitaion Link: ' + json.serialize(result));
-            if (!Test.isRunningTest())
+            if (Test.isRunningTest()) {
                 wrapper = new WrapperResult(false, result);
+            } else {
+                wrapper = new WrapperResult(false, result);
+            }
 
             return wrapper;
         } catch (exception ex) {
