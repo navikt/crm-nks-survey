@@ -8,4 +8,9 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="url" type="String" label="Survey Invitation URL" description="" />
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>
