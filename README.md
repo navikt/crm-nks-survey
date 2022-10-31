@@ -5,13 +5,6 @@
 
 Dette repoet er opprettet for å ta i bruk Salesforce Survey funksjonaliteten for NKS.
 
-### Avhengigheter
-
-Dette repoet er avhengig av følgende pakker:
-
--   [xxxxxx](https://github.com/navikt/xxxxxx)
--   [xxxxxx](https://github.com/navikt/xxxxxx)
-
 # Komme i gang
 
 ## Installation
@@ -52,11 +45,7 @@ sfdx force:org:open
 
 # Henvendelser
 
-Enten:
 Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
-
-Eller:
-Spørsmål knyttet til koden eller prosjektet kan stilles til teamalias@nav.no
 
 ## For NAV-ansatte
 
