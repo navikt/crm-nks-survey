@@ -1,16 +1,9 @@
 # crm-nks-survey
 
-[![Build](https://github.com/navikt/XXXXXXXXXXXXX/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/XXXXXXXXXXXXX/actions?query=workflow%3Acreate)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/navikt/XXXXXXXXXXXXX/blob/master/LICENSE)
+[![Build](https://github.com/navikt/crm-nks-survey/workflows/%5BPUSH%5D%20Create%20Package/badge.svg)](https://github.com/navikt/crm-nks-survey/actions?query=workflow%3Acreate)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/navikt/crm-nks-survey/blob/master/LICENSE)
 
 Dette repoet er opprettet for å ta i bruk Salesforce Survey funksjonaliteten for NKS.
-
-### Avhengigheter
-
-Dette repoet er avhengig av følgende pakker:
-
--   [xxxxxx](https://github.com/navikt/xxxxxx)
--   [xxxxxx](https://github.com/navikt/xxxxxx)
 
 # Komme i gang
 
@@ -52,11 +45,7 @@ sfdx force:org:open
 
 # Henvendelser
 
-Enten:
 Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
-
-Eller:
-Spørsmål knyttet til koden eller prosjektet kan stilles til teamalias@nav.no
 
 ## For NAV-ansatte
 
