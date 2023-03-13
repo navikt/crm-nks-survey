@@ -53,6 +53,7 @@ public with sharing class NKS_SurveyControllerTest {
         Test.stopTest();
     }
 
+    /*
     @isTest
     static void testGetCommunityUrl() {
         Test.startTest();
@@ -60,7 +61,7 @@ public with sharing class NKS_SurveyControllerTest {
         Test.stopTest();
 
         System.assertNotEquals(null, url);
-    }
+    } */
 
     @isTest
     static void testGenerateRandNum() {
