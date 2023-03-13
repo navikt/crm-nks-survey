@@ -18,12 +18,8 @@
                 <behavior>Edit</behavior>
                 <field>InviteExpiryDateTime</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>NKS_Participants_Percentage__c</field>
-            </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns />
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -50,9 +46,9 @@
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
-        <layoutColumns/>
-        <layoutColumns/>
-        <layoutColumns/>
+        <layoutColumns />
+        <layoutColumns />
+        <layoutColumns />
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
