@@ -11,9 +11,12 @@ public with sharing class NKS_SurveyController {
     public static String createSurveyInvitation(Id surveyId, Id caseId, Boolean isReserved) {
         Id communityId;
         String surveyUrl;
+        String surveyName;
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
+            Survey survey = [SELECT Id, DeveloperName FROM Survey WHERE Id = :surveyId];
+            surveyName = survey.DeveloperName;
         }
 
         try {
@@ -59,12 +62,15 @@ public with sharing class NKS_SurveyController {
             if (!Test.isRunningTest()) {
                 sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
             }
+
             String uniqueSInvId = sInv.UUID;
             surveyUrl =
                 getBaseURL() +
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.id +
-                '&surveyName=nks_service_survey&UUID=' +
+                '&surveyName=' +
+                surveyName +
+                '&UUID=' +
                 uniqueSInvId;
             System.debug('survey url' + json.serialize(surveyURL));
 
