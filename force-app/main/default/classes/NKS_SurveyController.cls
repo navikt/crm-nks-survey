@@ -1,6 +1,6 @@
 public with sharing class NKS_SurveyController {
     /**
-     * @description Function to genereate SF SurveyInvitationLink per Case
+     * @description Function to generate SF SurveyInvitationLink per Case
      * @author Sara Mohammadi | 14. mars 2023
      * @param Id surveyId
      * @param Id caseId
