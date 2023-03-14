@@ -33,8 +33,8 @@ public with sharing class NKS_SurveyController {
 
             // Send survey to random users
             Integer randNum = (Math.random() * 100).intValue();
-            if (!Test.isRunningTest()) {
-                if (randNum <= 40) {
+            if (randNum <= 40) {
+                if (!Test.isRunningTest()) {
                     throw new SurveyException('This user does not visit the condition for sending survey.');
                 }
             }
