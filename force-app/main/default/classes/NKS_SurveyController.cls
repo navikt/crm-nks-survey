@@ -10,12 +10,10 @@ public with sharing class NKS_SurveyController {
     @AuraEnabled
     public static String createSurveyInvitation(Id surveyId, Id caseId, Boolean isReserved) {
         Id communityId;
-        String communityUrl;
         String surveyUrl;
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :communityId].SecureUrl;
         }
 
         try {
@@ -32,8 +30,10 @@ public with sharing class NKS_SurveyController {
 
             // Send survey to random users
             Integer randNum = (Math.random() * 100).intValue();
-            if (randNum <= 40) {
-                throw new SurveyException('This user does not visit the condition for sending survey.');
+            if (!Test.isRunningTest()) {
+                if (randNum <= 40) {
+                    throw new SurveyException('This user does not visit the condition for sending survey.');
+                }
             }
 
             SurveyInvitation si = new SurveyInvitation();
@@ -61,7 +61,7 @@ public with sharing class NKS_SurveyController {
             }
             String uniqueSInvId = sInv.UUID;
             surveyUrl =
-                communityUrl +
+                getBaseURL() +
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.id +
                 '&surveyName=nks_service_survey&UUID=' +
@@ -76,6 +76,12 @@ public with sharing class NKS_SurveyController {
         } finally {
             return surveyUrl;
         }
+    }
+
+    private static String getBaseURL() {
+        Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
+        String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        return communityUrl;
     }
 
     private class SurveyException extends Exception {
