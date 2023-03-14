@@ -1,13 +1,21 @@
 public with sharing class NKS_SurveyController {
+    /**
+     * @description Function to genereate SF SurveyInvitationLink per Case
+     * @author Sara Mohammadi | 14. mars 2023
+     * @param Id surveyId
+     * @param Id caseId
+     * @param Boolean reserved
+     * @return String surveyUrl
+     */
     @AuraEnabled
-    public static String createSurveyInvitation(String caseId, Boolean isReserved) {
-        String communityId;
-        String surveyId;
+    public static String createSurveyInvitation(Id surveyId, Id caseId, Boolean isReserved) {
+        Id communityId;
+        String communityUrl;
         String surveyUrl;
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            surveyId = [SELECT Id FROM Survey WHERE Name = 'nks_service_survey'].Id;
+            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :communityId].SecureUrl;
         }
 
         try {
@@ -22,19 +30,16 @@ public with sharing class NKS_SurveyController {
                 throw new SurveyException('Survey for this case is already completed.');
             }
 
-            if (!Test.isRunningTest()) {
-                // Send survey to random users
-                Integer randNum = generateRandNum();
-                if (randNum <= 40) {
-                    throw new SurveyException('This user does not visit the condition for sending survey.');
-                }
+            // Send survey to random users
+            Integer randNum = (Math.random() * 100).intValue();
+            if (randNum <= 40) {
+                throw new SurveyException('This user does not visit the condition for sending survey.');
             }
 
             SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
             si.Name = caseId;
             si.Case__c = caseId;
-            //si.ParticipantId = userInfo.getUserId();
             si.OptionsAllowGuestUserResponse = true;
             si.OptionsCollectAnonymousResponse = true;
             si.SurveyId = surveyId;
@@ -50,16 +55,18 @@ public with sharing class NKS_SurveyController {
                 insert ss;
             }
 
-            SurveyInvitation sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
-
-            string uniqueSInvId = sInv.UUID;
+            SurveyInvitation sInv = new surveyInvitation();
+            if (!Test.isRunningTest()) {
+                sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
+            }
+            String uniqueSInvId = sInv.UUID;
             surveyUrl =
-                getBaseURL() +
+                communityUrl +
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.id +
                 '&surveyName=nks_service_survey&UUID=' +
                 uniqueSInvId;
-            system.debug('survey url' + json.serialize(surveyURL));
+            System.debug('survey url' + json.serialize(surveyURL));
 
             return surveyUrl;
         } catch (exception ex) {
@@ -69,18 +76,6 @@ public with sharing class NKS_SurveyController {
         } finally {
             return surveyUrl;
         }
-    }
-
-    @TestVisible
-    private static String getBaseURL() {
-        Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-        String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
-        return communityUrl;
-    }
-
-    @TestVisible
-    private static Integer generateRandNum() {
-        return (Math.random() * 100).intValue();
     }
 
     private class SurveyException extends Exception {
