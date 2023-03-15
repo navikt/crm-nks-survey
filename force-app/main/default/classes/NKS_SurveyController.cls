@@ -12,12 +12,13 @@ public with sharing class NKS_SurveyController {
         Id communityId;
         String surveyUrl;
         String surveyName;
+        Survey survey = new Survey();
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            Survey survey = [SELECT Id, DeveloperName FROM Survey WHERE Id = :surveyId];
-            surveyName = survey.DeveloperName;
+            survey = [SELECT Id, DeveloperName FROM Survey WHERE Id = :surveyId];
         }
+        surveyName = survey.DeveloperName;
 
         try {
             // check if user is reserved in KRR
@@ -33,10 +34,8 @@ public with sharing class NKS_SurveyController {
 
             // Send survey to random users
             Integer randNum = (Math.random() * 100).intValue();
-            if (randNum <= 40) {
-                if (!Test.isRunningTest()) {
-                    throw new SurveyException('This user does not visit the condition for sending survey.');
-                }
+            if (!Test.isRunningTest() && randNum <= 40) {
+                throw new SurveyException('This user does not visit the condition for sending survey.');
             }
 
             SurveyInvitation si = new SurveyInvitation();
@@ -62,7 +61,6 @@ public with sharing class NKS_SurveyController {
             if (!Test.isRunningTest()) {
                 sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
             }
-
             String uniqueSInvId = sInv.UUID;
             surveyUrl =
                 getBaseURL() +
@@ -84,9 +82,17 @@ public with sharing class NKS_SurveyController {
         }
     }
 
+    @TestVisible
     private static String getBaseURL() {
-        Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-        String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        Site site = new Site();
+        String communityUrl;
+        if (Test.isRunningTest()) {
+            communityUrl = 'testUrl';
+        }
+        if (!Test.isRunningTest()) {
+            site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
+            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        }
         return communityUrl;
     }
 
