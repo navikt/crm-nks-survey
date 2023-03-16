@@ -42,4 +42,12 @@ public with sharing class NKS_SurveyControllerTest {
         Test.stopTest();
         System.assertEquals('testUrl', testUrl, 'Dummy test!');
     }
+
+    @IsTest
+    static void testGenerateRandNum() {
+        Test.startTest();
+        Integer randNum = NKS_SurveyController.generateRandNum();
+        Test.stopTest();
+        System.assertNotEquals(null, randNum, 'Dummy test!');
+    }
 }

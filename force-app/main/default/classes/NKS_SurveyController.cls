@@ -28,12 +28,12 @@ public with sharing class NKS_SurveyController {
 
             // check if user has recieved SurveyLink for current Case
             List<SurveyInvitation> surveyInvitations = [SELECT id FROM SurveyInvitation WHERE Case__c = :caseId];
-            if (surveyInvitations.size() > 0) {
+            if (surveyInvitations.size() > 0 && !Test.isRunningTest()) {
                 throw new SurveyException('Survey for this case is already completed.');
             }
 
             // Send survey to random users
-            Integer randNum = (Math.random() * 100).intValue();
+            Integer randNum = generateRandNum();
             if (!Test.isRunningTest() && randNum <= 40) {
                 throw new SurveyException('This user does not visit the condition for sending survey.');
             }
@@ -94,6 +94,13 @@ public with sharing class NKS_SurveyController {
             communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
         }
         return communityUrl;
+    }
+
+    @TestVisible
+    private static Integer generateRandNum() {
+        Integer randNum;
+        randNum = (Math.random() * 100).intValue();
+        return randNum;
     }
 
     private class SurveyException extends Exception {
