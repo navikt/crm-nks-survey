@@ -1,0 +1,15 @@
+.body {
+    background-color: #003453;
+    font-family: sans-serif;
+    font-size: 1.125rem;
+    font-weight: var(--lwc-fontWeightRegular, 400);
+    color: #ffffff;
+}
+
+.footerLayout {
+    border: 0;
+}
+
+.icon {
+    --sds-c-icon-color-foreground-default: #ffffff;
+}
