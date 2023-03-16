@@ -5,7 +5,7 @@
     <formulas>
         <name>expirationDateTime</name>
         <dataType>DateTime</dataType>
-        <expression>{!$Record.CreatedDate} + 1</expression>
+        <expression>{!$Record.CreatedDate} + 3</expression>
     </formulas>
     <interviewLabel>NKS {!$Flow.CurrentDateTime}</interviewLabel>
     <label>NKS Survey - Set Expiration DateTime</label>
