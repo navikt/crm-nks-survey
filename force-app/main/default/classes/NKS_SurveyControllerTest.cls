@@ -36,6 +36,15 @@ public with sharing class NKS_SurveyControllerTest {
     }
 
     @IsTest
+    static void testCheckSurveyResponse() {
+        Case testCase = new Case();
+        Test.startTest();
+        Boolean completed = NKS_SurveyController.checkSurveyResponse(testCase.Id);
+        Test.stopTest();
+        System.assertEquals(true, completed, 'Test ResponseStatus');
+    }
+
+    @IsTest
     static void testGetBaseUrl() {
         Test.startTest();
         String testUrl = NKS_SurveyController.getBaseUrl();

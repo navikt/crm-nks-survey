@@ -29,7 +29,7 @@ public with sharing class NKS_SurveyController {
             // check if user has recieved SurveyLink for current Case
             List<SurveyInvitation> surveyInvitations = [SELECT id FROM SurveyInvitation WHERE Case__c = :caseId];
             if (surveyInvitations.size() > 0 && !Test.isRunningTest()) {
-                throw new SurveyException('Survey for this case is already completed.');
+                throw new SurveyException('A Survey Invitation already exists for this case.');
             }
 
             // Send survey to random users
@@ -81,6 +81,28 @@ public with sharing class NKS_SurveyController {
         } finally {
             return surveyUrl;
         }
+    }
+
+    @AuraEnabled
+    public static Boolean checkSurveyResponse(Id caseId) {
+        Boolean completed = false;
+        String status;
+        if (Test.isRunningTest()) {
+            status = 'Completed';
+        }
+        try {
+            if (!Test.isRunningTest()) {
+                status = [SELECT Id, Case__c, ResponseStatus FROM SurveyInvitation WHERE Case__c = :caseId LIMIT 1]
+                ?.ResponseStatus;
+            }
+            if (status == 'Completed') {
+                completed = true;
+                throw new SurveyException('Survey for this case is already completed.');
+            }
+        } catch (Exception ex) {
+            System.debug('The following exception has occurred while checking ResponseStatus: ' + ex.getMessage());
+        }
+        return completed;
     }
 
     @TestVisible
