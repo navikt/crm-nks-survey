@@ -33,10 +33,11 @@ public with sharing class NKS_SurveyController {
             }
 
             // Send survey to random users
+            /*
             Integer randNum = generateRandNum();
             if (!Test.isRunningTest() && randNum <= 40) {
                 throw new SurveyException('This user does not visit the condition for sending survey.');
-            }
+            } */
 
             SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
