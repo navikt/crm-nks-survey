@@ -4,11 +4,10 @@ public with sharing class NKS_SurveyController {
      * @author Sara Mohammadi | 14. mars 2023
      * @param Id surveyId
      * @param Id caseId
-     * @param Boolean reserved
      * @return String surveyUrl
      */
     @AuraEnabled
-    public static String createSurveyInvitation(Id surveyId, Id caseId, Boolean isReserved) {
+    public static String createSurveyInvitation(Id surveyId, Id caseId) {
         Id communityId;
         String surveyUrl;
         String surveyName;
@@ -21,23 +20,11 @@ public with sharing class NKS_SurveyController {
         surveyName = survey.DeveloperName;
 
         try {
-            // check if user is reserved in KRR
-            if (isReserved) {
-                throw new SurveyException('This user is reserved in KRR.');
-            }
-
             // check if user has recieved SurveyLink for current Case
             List<SurveyInvitation> surveyInvitations = [SELECT id FROM SurveyInvitation WHERE Case__c = :caseId];
             if (surveyInvitations.size() > 0 && !Test.isRunningTest()) {
                 throw new SurveyException('A Survey Invitation already exists for this case.');
             }
-
-            // Send survey to random users
-            /*
-            Integer randNum = generateRandNum();
-            if (!Test.isRunningTest() && randNum <= 40) {
-                throw new SurveyException('This user does not visit the condition for sending survey.');
-            } */
 
             SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
@@ -72,41 +59,34 @@ public with sharing class NKS_SurveyController {
                 '&UUID=' +
                 uniqueSInvId;
             System.debug('survey url' + json.serialize(surveyURL));
-
-            return surveyUrl;
-        } catch (exception ex) {
-            System.debug('The following exception has occurred while inserting SurveySubject: ' + ex.getMessage());
-            surveyUrl = ex.getMessage();
-            return surveyUrl;
-        } finally {
-            return surveyUrl;
+        } catch (exception e) {
+            System.debug('The following exception has occurred while creating SurveyInvitation: ' + e.getMessage());
         }
+        return surveyUrl;
     }
 
     @AuraEnabled
     public static Boolean checkSurveyResponse(Id caseId) {
-        Boolean completed = false;
         String status;
         if (Test.isRunningTest()) {
-            status = 'Completed';
+            status = 'Started';
         }
+
         try {
             if (!Test.isRunningTest()) {
                 status = [SELECT Id, Case__c, ResponseStatus FROM SurveyInvitation WHERE Case__c = :caseId LIMIT 1]
                 ?.ResponseStatus;
             }
             if (status == 'Completed') {
-                completed = true;
-                throw new SurveyException('Survey for this case is already completed.');
+                return true;
             }
         } catch (Exception ex) {
             System.debug('The following exception has occurred while checking ResponseStatus: ' + ex.getMessage());
         }
-        return completed;
+        return false;
     }
 
-    @TestVisible
-    private static String getBaseURL() {
+    public static String getBaseURL() {
         Site site = new Site();
         String communityUrl;
         if (Test.isRunningTest()) {
@@ -117,13 +97,6 @@ public with sharing class NKS_SurveyController {
             communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
         }
         return communityUrl;
-    }
-
-    @TestVisible
-    private static Integer generateRandNum() {
-        Integer randNum;
-        randNum = (Math.random() * 100).intValue();
-        return randNum;
     }
 
     private class SurveyException extends Exception {

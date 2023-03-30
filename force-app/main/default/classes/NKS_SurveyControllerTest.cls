@@ -1,26 +1,6 @@
 @isTest
 public with sharing class NKS_SurveyControllerTest {
     @IsTest
-    static void testCreateSurveyInvitaionReserved() {
-        Case testCase = new Case();
-        Survey testSurvey = new Survey();
-        String url;
-
-        Test.startTest();
-        try {
-            url = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id, true);
-        } catch (Exception ex) {
-            System.assertEquals('SurveyException', ex.getTypeName(), 'Checks exception type');
-        }
-        Test.stopTest();
-        System.assertEquals(
-            'This user is reserved in KRR.',
-            url,
-            'Checks if function throws SurveyException when user is reserved in KRR'
-        );
-    }
-
-    @IsTest
     static void testCreateSurveyInvitaion() {
         Case testCase = new Case();
         Survey testSurvey = new Survey();
@@ -28,7 +8,7 @@ public with sharing class NKS_SurveyControllerTest {
 
         Test.startTest();
         try {
-            url = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id, false);
+            url = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
         } catch (Exception ex) {
             System.assertEquals(ex.getMessage(), url, 'Survey URL is not generated.');
         }
@@ -38,10 +18,11 @@ public with sharing class NKS_SurveyControllerTest {
     @IsTest
     static void testCheckSurveyResponse() {
         Case testCase = new Case();
+
         Test.startTest();
         Boolean completed = NKS_SurveyController.checkSurveyResponse(testCase.Id);
         Test.stopTest();
-        System.assertEquals(true, completed, 'Test ResponseStatus');
+        System.assertEquals(false, completed, 'Test ResponseStatus');
     }
 
     @IsTest
@@ -50,13 +31,5 @@ public with sharing class NKS_SurveyControllerTest {
         String testUrl = NKS_SurveyController.getBaseUrl();
         Test.stopTest();
         System.assertEquals('testUrl', testUrl, 'Dummy test!');
-    }
-
-    @IsTest
-    static void testGenerateRandNum() {
-        Test.startTest();
-        Integer randNum = NKS_SurveyController.generateRandNum();
-        Test.stopTest();
-        System.assertNotEquals(null, randNum, 'Dummy test!');
     }
 }
