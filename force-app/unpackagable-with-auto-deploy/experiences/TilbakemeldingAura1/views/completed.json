@@ -1,0 +1,70 @@
+{
+  "appPageId" : "1c015578-90b8-4746-b8dc-b77a9a512a7d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "0e72cc9d-e10a-40a8-b53e-c25f424755a1",
+  "label" : "completed",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "969b83fc-21e0-4528-a948-b08cd269aa6f",
+          "columns" : [ {
+            "UUID" : "010f328f-2bba-4465-8084-e5ccc1e7dba3",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "969b83fc-21e0-4528-a948-b08cd269aa6f",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<p style=\"text-align: center;\"><span style=\"font-size: 16px; font-family: verdana;\">Undersøkelsen for denne henvendelsen er allerede fullført.</span></p>"
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "90856668-a6cb-4bc1-b62b-9854e9131501",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "010f328f-2bba-4465-8084-e5ccc1e7dba3",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6d35f480-d6f7-462a-8c4c-c5c88ba95457",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "completed"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "93e87924-e9ba-49ef-89ca-6646f2a35f9e",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7ba5eaf2-c2a3-4c5f-8a9f-df705b8ed3bd",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-completed"
+}
