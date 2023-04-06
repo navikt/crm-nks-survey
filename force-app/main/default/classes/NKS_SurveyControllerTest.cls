@@ -4,7 +4,7 @@ public with sharing class NKS_SurveyControllerTest {
      * Test the createSurveyInvitation() method when one already exists
      */
     @isTest
-    static void testCreateSurveyInvitation2() {
+    static void testCreateSurveyInvitation() {
         // Test data
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
         Survey testSurvey = new Survey();
@@ -52,6 +52,6 @@ public with sharing class NKS_SurveyControllerTest {
         Test.stopTest();
 
         // Assert the result
-        System.assertNotEquals(null, result, 'Base URL should not be null');
+        System.assertNotEquals(null, result, 'Base URL should not be null.');
     }
 }

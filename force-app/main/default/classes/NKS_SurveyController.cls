@@ -77,7 +77,7 @@ public with sharing class NKS_SurveyController {
      * @return String Community Base URL
      */
     public static String getBaseURL() {
-        String communityUrl;
+        String communityUrl = '';
 
         try {
             Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
