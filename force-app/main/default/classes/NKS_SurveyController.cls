@@ -62,12 +62,7 @@ public with sharing class NKS_SurveyController {
      */
     @AuraEnabled
     public static Boolean checkSurveyResponse(Id caseId) {
-        String status = '';
-        try {
-            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
-        } catch (Exception e) {
-            System.debug('The following exception has occurred while checking ResponseStatus: ' + e.getMessage());
-        }
+        String status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
         return status == 'Completed';
     }
 
@@ -77,14 +72,8 @@ public with sharing class NKS_SurveyController {
      * @return String Community Base URL
      */
     public static String getBaseURL() {
-        String communityUrl = '';
-
-        try {
-            Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
-        } catch (Exception e) {
-            System.debug('The following exception has occurred while getting BaseURL: ' + e.getMessage());
-        }
+        Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
+        String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
         return communityUrl;
     }
 

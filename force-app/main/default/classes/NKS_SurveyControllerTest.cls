@@ -38,7 +38,7 @@ public with sharing class NKS_SurveyControllerTest {
         Test.stopTest();
 
         // Assert the result
-        System.assertEquals(false, result, 'Survey response status should be false');
+        System.assertEquals(false, result, 'Survey response status should be false.');
     }
 
     /**
