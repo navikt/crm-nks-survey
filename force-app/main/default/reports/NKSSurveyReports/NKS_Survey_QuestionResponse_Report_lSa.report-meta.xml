@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>SurveyInvitation$Survey</field>
+    </columns>
+    <columns>
+        <field>SurveyInvitation.SurveyResponses$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>SurveyInvitation$NKS_Survey_Theme__c</field>
+    </columns>
+    <columns>
+        <field>SurveyInvitation$NKS_Survey_Unit__c</field>
+    </columns>
+    <columns>
+        <field>SurveyInvitation.SurveyResponses.SurveyQuestionResponses$Question</field>
+    </columns>
+    <columns>
+        <field>SurveyInvitation.SurveyResponses.SurveyQuestionResponses$ResponseValue</field>
+    </columns>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>SurveyInvitation$Id</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>SurveyInvitation.SurveyResponses$Id</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>NKS Survey Question&amp;Response Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>NKS_Survey_Report_Type__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>SurveyInvitation$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

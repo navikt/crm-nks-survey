@@ -2,12 +2,12 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldPermissions>
         <editable>false</editable>
-        <field>SurveySubject.NKS_Survey_Theme__c</field>
+        <field>SurveyInvitation.NKS_Survey_Theme__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>SurveySubject.NKS_Survey_Unit__c</field>
+        <field>SurveyInvitation.NKS_Survey_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
