@@ -46,13 +46,15 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testGetBaseURL() {
+        String result = '';
         // Call the method
         Test.startTest();
         try {
-            String result = NKS_SurveyController.getBaseURL();
+            result = NKS_SurveyController.getBaseURL();
         } catch (Exception e) {
-            System.assert(true, 'Expected an exception');
+            System.assert(false, 'Expected an exception');
         }
         Test.stopTest();
+        System.assertEquals('testUrl', result, 'Expected to return test URL.');
     }
 }

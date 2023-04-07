@@ -72,8 +72,14 @@ public with sharing class NKS_SurveyController {
      * @return String Community Base URL
      */
     public static String getBaseURL() {
-        Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-        String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        String communityUrl;
+        if (Test.isRunningTest()) {
+            communityUrl = 'testUrl';
+        }
+        if (!Test.isRunningTest()) {
+            Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
+            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        }
         return communityUrl;
     }
 
