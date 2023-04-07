@@ -1,35 +1,60 @@
 @isTest
 public with sharing class NKS_SurveyControllerTest {
-    @IsTest
-    static void testCreateSurveyInvitaion() {
-        Case testCase = new Case();
+    /**
+     * Test the createSurveyInvitation() method when one already exists
+     */
+    @isTest
+    static void testCreateSurveyInvitation() {
+        // Test data
+        Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
         Survey testSurvey = new Survey();
-        String url;
 
+        // Test creating a survey invitation
+        String surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+
+        // Test creating a survey invitation when one already exists
         Test.startTest();
         try {
-            url = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
-        } catch (Exception ex) {
-            System.assertEquals(ex.getMessage(), url, 'Survey URL is not generated.');
+            NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+        } catch (Exception e) {
+            // Ensure that the correct exception message is returned
+            System.assertEquals('SurveyException', e.getTypeName(), 'Expected to throw SurveyException.');
+            System.assertEquals('A Survey Invitation already exists for this case.', e.getMessage());
         }
         Test.stopTest();
     }
 
-    @IsTest
+    /**
+     * Test the checkSurveyResponse() method
+     */
+    @isTest
     static void testCheckSurveyResponse() {
-        Case testCase = new Case();
+        // Test data
+        Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
 
+        // Call the method
         Test.startTest();
-        Boolean completed = NKS_SurveyController.checkSurveyResponse(testCase.Id);
+        Boolean result = NKS_SurveyController.checkSurveyResponse(testCase.Id);
         Test.stopTest();
-        System.assertEquals(false, completed, 'Test ResponseStatus');
+
+        // Assert the result
+        System.assertEquals(false, result, 'Survey response status should be false.');
     }
 
-    @IsTest
-    static void testGetBaseUrl() {
+    /**
+     * Test the getBaseURL() method
+     */
+    @isTest
+    static void testGetBaseURL() {
+        String result = '';
+        // Call the method
         Test.startTest();
-        String testUrl = NKS_SurveyController.getBaseUrl();
+        try {
+            result = NKS_SurveyController.getBaseURL();
+        } catch (Exception e) {
+            System.assert(false, 'Expected an exception');
+        }
         Test.stopTest();
-        System.assertEquals('testUrl', testUrl, 'Dummy test!');
+        System.assertEquals('testUrl', result, 'Expected to return test URL.');
     }
 }

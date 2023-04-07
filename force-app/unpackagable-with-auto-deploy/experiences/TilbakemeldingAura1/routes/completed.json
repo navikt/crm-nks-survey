@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "0e72cc9d-e10a-40a8-b53e-c25f424755a1",
+  "appPageId" : "1c015578-90b8-4746-b8dc-b77a9a512a7d",
+  "configurationTags" : [ ],
+  "id" : "555b4a09-75c2-4316-9029-01c1267ad965",
+  "label" : "completed",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-completed",
+  "type" : "route",
+  "urlPrefix" : "completed"
+}
