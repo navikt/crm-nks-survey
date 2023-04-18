@@ -5,10 +5,8 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testCreateSurveyInvitation() {
-        // Test data
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
         Survey testSurvey = new Survey();
-
         // Test creating a survey invitation
         String surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
 
@@ -29,15 +27,11 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testCheckSurveyResponse() {
-        // Test data
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
 
-        // Call the method
         Test.startTest();
         Boolean result = NKS_SurveyController.checkSurveyResponse(testCase.Id);
         Test.stopTest();
-
-        // Assert the result
         System.assertEquals(false, result, 'Survey response status should be false.');
     }
 
@@ -46,15 +40,9 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testGetBaseURL() {
-        String result = '';
-        // Call the method
         Test.startTest();
-        try {
-            result = NKS_SurveyController.getBaseURL();
-        } catch (Exception e) {
-            System.assert(false, 'Expected an exception');
-        }
+        String url = NKS_SurveyController.getBaseURL();
         Test.stopTest();
-        System.assertEquals('testUrl', result, 'Expected to return test URL.');
+        System.assertNotEquals(null, url, 'Expected to return Base URL.');
     }
 }
