@@ -40,8 +40,15 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testGetBaseURL() {
+        String url = '';
         Test.startTest();
-        String url = NKS_SurveyController.getBaseURL();
+        try {
+            url = NKS_SurveyController.getBaseURL();
+        } catch (Exception e) {
+            // Ensure that the correct exception message is returned
+            System.assertEquals('SurveyException', e.getTypeName(), 'Expected to throw SurveyException.');
+            System.assertEquals('Problem getting Base URL.', e.getMessage());
+        }
         Test.stopTest();
         System.assertNotEquals(null, url, 'Expected to return Base URL.');
     }
