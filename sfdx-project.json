@@ -11,7 +11,7 @@
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "57.0",
+    "sourceApiVersion": "55.0",
     "packageAliases": {
         "crm-nks-survey": "0Ho7U0000000014SAA"
     }
