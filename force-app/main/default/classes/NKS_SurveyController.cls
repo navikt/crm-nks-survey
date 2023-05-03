@@ -92,6 +92,7 @@ public with sharing class NKS_SurveyController {
         }
     }
 
+    @TestVisible
     private class SurveyException extends Exception {
     }
 }
