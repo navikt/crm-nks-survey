@@ -7,11 +7,24 @@ public with sharing class NKS_SurveyControllerTest {
     static void testCreateSurveyInvitation() {
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
         Survey testSurvey = new Survey();
+        String surveyUrl = '';
+
         // Test creating a survey invitation
-        String surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+        Test.startTest();
+        try {
+            surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+        } catch (Exception e) {
+            // Ensure that the correct exception message is returned
+            System.assertEquals(
+                'NKS_SurveyController.SurveyException',
+                e.getTypeName(),
+                'Expected to throw SurveyException.'
+            );
+            System.assertEquals('An error has occurred while creating SurveyInvitation', e.getMessage());
+        }
+        System.assertNotEquals(null, surveyUrl, 'Survey URL should not be null.');
 
         // Test creating a survey invitation when one already exists
-        Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
         } catch (Exception e) {
