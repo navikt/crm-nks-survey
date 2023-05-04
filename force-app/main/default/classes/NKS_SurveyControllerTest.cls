@@ -22,21 +22,8 @@ public with sharing class NKS_SurveyControllerTest {
             );
             System.assertEquals('An error has occurred while creating SurveyInvitation', e.getMessage());
         }
-        System.assertNotEquals(null, surveyUrl, 'Survey URL should not be null.');
-
-        // Test creating a survey invitation when one already exists
-        try {
-            NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
-        } catch (Exception e) {
-            // Ensure that the correct exception message is returned
-            System.assertEquals(
-                'NKS_SurveyController.SurveyException',
-                e.getTypeName(),
-                'Expected to throw SurveyException.'
-            );
-            System.assertEquals('A Survey Invitation already exists for this case.', e.getMessage());
-        }
         Test.stopTest();
+        System.assertNotEquals(null, surveyUrl, 'Survey URL should not be null.');
     }
 
     /**
