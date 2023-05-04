@@ -9,7 +9,6 @@ public with sharing class NKS_SurveyController {
     @AuraEnabled
     public static String createSurveyInvitation(Id surveyId, Id caseId) {
         Id communityId;
-        String surveyUrl = '';
         Survey Survey = new Survey();
 
         if (!Test.isRunningTest()) {
@@ -39,7 +38,7 @@ public with sharing class NKS_SurveyController {
                 sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
             }
             String uniqueSInvId = sInv.UUID;
-            surveyUrl =
+            String surveyUrl =
                 getBaseURL() +
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.Id +
@@ -48,10 +47,11 @@ public with sharing class NKS_SurveyController {
                 '&UUID=' +
                 uniqueSInvId;
             System.debug('survey url' + JSON.serialize(surveyUrl));
+            return surveyUrl;
         } catch (Exception e) {
             System.debug('The following exception has occurred while creating SurveyInvitation: ' + e.getMessage());
+            throw new SurveyException('An error has occurred while creating SurveyInvitation');
         }
-        return surveyUrl;
     }
 
     /**
@@ -62,8 +62,19 @@ public with sharing class NKS_SurveyController {
      */
     @AuraEnabled
     public static Boolean checkSurveyResponse(Id caseId) {
-        String status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
-        return status == 'Completed';
+        try {
+            String status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]
+            ?.ResponseStatus;
+            return status == 'Completed';
+        } catch (Exception e) {
+            System.debug(
+                'The following exception has occurred while gettting ResponseStatus for Case ' +
+                caseId +
+                ': ' +
+                e.getMessage()
+            );
+            throw new SurveyException('Problem getting ResponseStatus for Case ' + caseId + '.');
+        }
     }
 
     /**
@@ -72,17 +83,16 @@ public with sharing class NKS_SurveyController {
      * @return String Community Base URL
      */
     public static String getBaseURL() {
-        String communityUrl;
-        if (Test.isRunningTest()) {
-            communityUrl = 'testUrl';
+        try {
+            Id siteId = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1]?.Id;
+            return [SELECT SecureURL FROM SiteDetail WHERE DurableId = :siteId].SecureUrl;
+        } catch (Exception e) {
+            System.debug('The following exception has occurred while gettting Base URL : ' + e.getMessage());
+            throw new SurveyException('Problem getting Base URL.');
         }
-        if (!Test.isRunningTest()) {
-            Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
-        }
-        return communityUrl;
     }
 
+    @TestVisible
     private class SurveyException extends Exception {
     }
 }

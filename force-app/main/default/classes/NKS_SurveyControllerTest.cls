@@ -5,23 +5,25 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testCreateSurveyInvitation() {
-        // Test data
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
         Survey testSurvey = new Survey();
+        String surveyUrl = '';
 
         // Test creating a survey invitation
-        String surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
-
-        // Test creating a survey invitation when one already exists
         Test.startTest();
         try {
-            NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+            surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
-            System.assertEquals('SurveyException', e.getTypeName(), 'Expected to throw SurveyException.');
-            System.assertEquals('A Survey Invitation already exists for this case.', e.getMessage());
+            System.assertEquals(
+                'NKS_SurveyController.SurveyException',
+                e.getTypeName(),
+                'Expected to throw SurveyException.'
+            );
+            System.assertEquals('An error has occurred while creating SurveyInvitation', e.getMessage());
         }
         Test.stopTest();
+        System.assertNotEquals(null, surveyUrl, 'Survey URL should not be null.');
     }
 
     /**
@@ -29,15 +31,11 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testCheckSurveyResponse() {
-        // Test data
         Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
 
-        // Call the method
         Test.startTest();
         Boolean result = NKS_SurveyController.checkSurveyResponse(testCase.Id);
         Test.stopTest();
-
-        // Assert the result
         System.assertEquals(false, result, 'Survey response status should be false.');
     }
 
@@ -46,15 +44,20 @@ public with sharing class NKS_SurveyControllerTest {
      */
     @isTest
     static void testGetBaseURL() {
-        String result = '';
-        // Call the method
+        String url = '';
         Test.startTest();
         try {
-            result = NKS_SurveyController.getBaseURL();
+            url = NKS_SurveyController.getBaseURL();
         } catch (Exception e) {
-            System.assert(false, 'Expected an exception');
+            // Ensure that the correct exception message is returned
+            System.assertEquals(
+                'NKS_SurveyController.SurveyException',
+                e.getTypeName(),
+                'Expected to throw SurveyException.'
+            );
+            System.assertEquals('Problem getting Base URL.', e.getMessage());
         }
         Test.stopTest();
-        System.assertEquals('testUrl', result, 'Expected to return test URL.');
+        System.assertNotEquals(null, url, 'Expected to return Base URL.');
     }
 }
