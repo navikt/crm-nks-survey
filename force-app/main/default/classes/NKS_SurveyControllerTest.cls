@@ -16,7 +16,11 @@ public with sharing class NKS_SurveyControllerTest {
             NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
-            System.assertEquals('SurveyException', e.getTypeName(), 'Expected to throw SurveyException.');
+            System.assertEquals(
+                'NKS_SurveyController.SurveyException',
+                e.getTypeName(),
+                'Expected to throw SurveyException.'
+            );
             System.assertEquals('A Survey Invitation already exists for this case.', e.getMessage());
         }
         Test.stopTest();
@@ -46,7 +50,11 @@ public with sharing class NKS_SurveyControllerTest {
             url = NKS_SurveyController.getBaseURL();
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
-            System.assertEquals('SurveyException', e.getTypeName(), 'Expected to throw SurveyException.');
+            System.assertEquals(
+                'NKS_SurveyController.SurveyException',
+                e.getTypeName(),
+                'Expected to throw SurveyException.'
+            );
             System.assertEquals('Problem getting Base URL.', e.getMessage());
         }
         Test.stopTest();
