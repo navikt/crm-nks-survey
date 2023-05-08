@@ -12,7 +12,7 @@ public with sharing class NKS_SurveyControllerTest {
         // Test creating a survey invitation
         Test.startTest();
         try {
-            surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.Id, testCase.Id);
+            surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.DeveloperName, testCase.Id);
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
             System.assertEquals(

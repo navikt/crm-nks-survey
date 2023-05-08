@@ -7,13 +7,13 @@ public with sharing class NKS_SurveyController {
      * @return String surveyUrl
      */
     @AuraEnabled
-    public static String createSurveyInvitation(Id surveyId, Id caseId) {
+    public static String createSurveyInvitation(String developerName, Id caseId) {
         Id communityId;
         Survey Survey = new Survey();
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            survey = [SELECT Id, DeveloperName FROM Survey WHERE Id = :surveyId];
+            survey = [SELECT Id, DeveloperName FROM Survey WHERE DeveloperName = :developerName];
         }
 
         try {
@@ -28,7 +28,7 @@ public with sharing class NKS_SurveyController {
             si.Name = caseId;
             si.OptionsAllowGuestUserResponse = true;
             si.OptionsCollectAnonymousResponse = true;
-            si.SurveyId = surveyId;
+            si.SurveyId = survey.Id;
             if (!Test.isRunningTest()) {
                 insert si;
             }
@@ -43,7 +43,7 @@ public with sharing class NKS_SurveyController {
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.Id +
                 '&surveyName=' +
-                survey.DeveloperName +
+                developerName +
                 '&UUID=' +
                 uniqueSInvId;
             System.debug('survey url' + JSON.serialize(surveyUrl));
