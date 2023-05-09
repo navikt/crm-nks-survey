@@ -1,18 +1,28 @@
 @isTest
 public with sharing class NKS_SurveyControllerTest {
+    @TestSetup
+    static void makeData() {
+        Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
+        insert testCase;
+    }
+
     /**
-     * Test the createSurveyInvitation() method when one already exists
+     * Test the generateSurveyInvitation() method when one already exists
      */
     @isTest
-    static void testCreateSurveyInvitation() {
-        Case testCase = new Case(Subject = 'Test Subject', Description = 'Test Description');
-        Survey testSurvey = new Survey();
-        String surveyUrl = '';
+    static void testGenerateSurveyInvitation() {
+        Id caseId = [SELECT Id FROM Case LIMIT 1]?.Id;
+        NKS_SurveyController.SurveyInvocableParameters parameters = new NKS_SurveyController.SurveyInvocableParameters();
+        parameters.surveyDeveloperName = 'test_survey';
+        parameters.caseId = caseId;
+        List<NKS_SurveyController.SurveyInvocableParameters> parametersList = new List<NKS_SurveyController.SurveyInvocableParameters>();
+        parametersList.add(parameters);
+        List<String> surveyLinks = new List<String>();
 
         // Test creating a survey invitation
         Test.startTest();
         try {
-            surveyUrl = NKS_SurveyController.createSurveyInvitation(testSurvey.DeveloperName, testCase.Id);
+            surveyLinks = NKS_SurveyController.generateSurveyLink(parametersList);
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
             System.assertEquals(
@@ -23,7 +33,7 @@ public with sharing class NKS_SurveyControllerTest {
             System.assertEquals('An error has occurred while creating SurveyInvitation', e.getMessage());
         }
         Test.stopTest();
-        System.assertNotEquals(null, surveyUrl, 'Survey URL should not be null.');
+        System.assertNotEquals(0, surveyLinks.size(), 'Survey URL should not be null.');
     }
 
     /**
