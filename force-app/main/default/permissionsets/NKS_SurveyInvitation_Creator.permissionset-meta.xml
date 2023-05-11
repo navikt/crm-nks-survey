@@ -5,5 +5,5 @@
         <enabled>true</enabled>
     </classAccesses>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>NKS - Survey Creator</label>
+    <label>NKS - SurveyInvitation Creator</label>
 </PermissionSet>
