@@ -7,14 +7,14 @@ public with sharing class NKS_SurveyController {
      * @return String surveyUrl
      */
     @AuraEnabled
-    public static String createSurveyInvitation(Id surveyId, Id caseId) {
+    public static String createSurveyInvitation(String developerName, Id caseId) {
         Id communityId;
+        Survey survey = new Survey();
         String surveyUrl = '';
-        Survey Survey = new Survey();
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            survey = [SELECT Id, DeveloperName FROM Survey WHERE Id = :surveyId];
+            survey = [SELECT Id, DeveloperName FROM Survey WHERE DeveloperName = :developerName];
         }
 
         try {
@@ -29,7 +29,7 @@ public with sharing class NKS_SurveyController {
             si.Name = caseId;
             si.OptionsAllowGuestUserResponse = true;
             si.OptionsCollectAnonymousResponse = true;
-            si.SurveyId = surveyId;
+            si.SurveyId = survey.Id;
             if (!Test.isRunningTest()) {
                 insert si;
             }
@@ -44,14 +44,45 @@ public with sharing class NKS_SurveyController {
                 'survey/runtimeApp.app?invitationId=' +
                 sInv.Id +
                 '&surveyName=' +
-                survey.DeveloperName +
+                developerName +
                 '&UUID=' +
                 uniqueSInvId;
             System.debug('survey url' + JSON.serialize(surveyUrl));
         } catch (Exception e) {
             System.debug('The following exception has occurred while creating SurveyInvitation: ' + e.getMessage());
+            //throw new SurveyException('An error has occurred while creating SurveyInvitation');
         }
         return surveyUrl;
+    }
+
+    /**
+     * @description Function to create SurveyInvitation
+     * @author Sara Mohammadi | 9. Mai 2023
+     * @param SurveyInvocableParameters parameters
+     * @return String SurveyInvitationLink
+     */
+    public static String invokeCreateSurveyInvitation(SurveyInvocableParameters parameters) {
+        return createSurveyInvitation(parameters.surveyDeveloperName, parameters.caseId);
+    }
+
+    /**
+     * @description Function to create survey link
+     * @author Sara Mohammadi | 9. Mai 2023
+     * @param List<SurveyInvocableParameters> parametersList
+     * @return List<String> survey link
+     */
+    @invocableMethod(label='Generate SurveyInvitationLink')
+    public static List<String> generateSurveyLink(List<SurveyInvocableParameters> parametersList) {
+        List<String> surveyLinks = new List<String>();
+        try {
+            for (Integer i = 0; i < parametersList.size(); i++) {
+                String surveyLink = invokeCreateSurveyInvitation(parametersList[i]);
+                surveyLinks.add(surveyLink);
+            }
+        } catch (Exception e) {
+            System.debug('Problem creating SurveyInvitationLink: ' + e.getMessage());
+        }
+        return surveyLinks;
     }
 
     /**
@@ -62,7 +93,21 @@ public with sharing class NKS_SurveyController {
      */
     @AuraEnabled
     public static Boolean checkSurveyResponse(Id caseId) {
-        String status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
+        String status = '';
+        if (Test.isRunningTest()) {
+            status = 'Started';
+        }
+        try {
+            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
+        } catch (Exception e) {
+            System.debug(
+                'The following exception has occurred while gettting ResponseStatus for Case ' +
+                caseId +
+                ': ' +
+                e.getMessage()
+            );
+            // throw new SurveyException('Problem getting ResponseStatus for Case ' + caseId + '.');
+        }
         return status == 'Completed';
     }
 
@@ -72,17 +117,32 @@ public with sharing class NKS_SurveyController {
      * @return String Community Base URL
      */
     public static String getBaseURL() {
-        String communityUrl;
+        String url = '';
         if (Test.isRunningTest()) {
-            communityUrl = 'testUrl';
+            url = 'testUrl';
         }
-        if (!Test.isRunningTest()) {
-            Site site = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1];
-            communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :site.Id].SecureUrl;
+        try {
+            Id siteId = [SELECT Id FROM Site WHERE Name = 'TilbakemeldingAura' LIMIT 1]?.Id;
+            url = [SELECT SecureURL FROM SiteDetail WHERE DurableId = :siteId].SecureUrl;
+        } catch (Exception e) {
+            System.debug('The following exception has occurred while gettting Base URL : ' + e.getMessage());
+            // throw new SurveyException('Problem getting Base URL.');
         }
-        return communityUrl;
+        return url;
     }
 
     private class SurveyException extends Exception {
+    }
+
+    /**
+     * @description Class to define invocable variables
+     * @author Sara Mohammadi | 9. Mai 2023
+     */
+    public class SurveyInvocableParameters {
+        @InvocableVariable(required=true)
+        public Id caseId;
+
+        @InvocableVariable(required=true)
+        public String surveyDeveloperName;
     }
 }
