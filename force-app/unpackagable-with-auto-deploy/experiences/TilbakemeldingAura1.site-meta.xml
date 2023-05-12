@@ -2,5 +2,5 @@
 <ExperienceBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>TilbakemeldingAura</label>
     <type>ChatterNetworkPicasso</type>
-    <urlPathPrefix>/s</urlPathPrefix>
+    <urlPathPrefix>Tilbakemelding/s</urlPathPrefix>
 </ExperienceBundle>
