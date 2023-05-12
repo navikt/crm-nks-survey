@@ -3,7 +3,7 @@
     <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
-    <communityRoles/>
+    <communityRoles />
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
     <emailSenderAddress>fakeemail@nav.no.scratchorg</emailSenderAddress>
     <emailSenderName>TilbakemeldingAura</emailSenderName>
@@ -46,7 +46,7 @@
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>TilbakemeldingAura</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>
-    <status>Live</status>
+    <status>UnderConstruction</status>
     <tabs>
         <defaultTab>home</defaultTab>
         <standardTab>Chatter</standardTab>
