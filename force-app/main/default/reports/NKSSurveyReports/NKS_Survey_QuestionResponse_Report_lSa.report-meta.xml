@@ -35,12 +35,12 @@
         <value>1</value>
     </params>
     <reportType>NKS_Survey_Report_Type__c</reportType>
-    <scope>user</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>false</showSubTotals>
     <timeFrameFilter>
         <dateColumn>SurveyInvitation$CreatedDate</dateColumn>
-        <interval>INTERVAL_CURRENT</interval>
+        <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
