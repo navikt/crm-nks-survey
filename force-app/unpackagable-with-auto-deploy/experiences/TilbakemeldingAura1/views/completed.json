@@ -1,8 +1,8 @@
 {
-  "appPageId" : "1c015578-90b8-4746-b8dc-b77a9a512a7d",
+  "appPageId" : "63065b97-d798-4668-9106-7879a5ae1324",
   "componentName" : "siteforce:dynamicLayout",
   "dataProviders" : [ ],
-  "id" : "0e72cc9d-e10a-40a8-b53e-c25f424755a1",
+  "id" : "ca2751d7-ce3b-46b4-bddc-c3b94a28cdef",
   "label" : "completed",
   "regions" : [ {
     "components" : [ {
@@ -11,9 +11,9 @@
         "backgroundOverlay" : "rgba(0,0,0,0.5)",
         "contentAreaWidth" : 100,
         "sectionConfig" : {
-          "UUID" : "969b83fc-21e0-4528-a948-b08cd269aa6f",
+          "UUID" : "5d28e399-0009-4aea-a95b-9c0893f16ecd",
           "columns" : [ {
-            "UUID" : "010f328f-2bba-4465-8084-e5ccc1e7dba3",
+            "UUID" : "be14826a-65db-42f9-ac4f-0288ef55d994",
             "columnKey" : "1",
             "columnName" : "Column 1",
             "columnWidth" : "12",
@@ -23,19 +23,19 @@
         "sectionHeight" : 300
       },
       "componentName" : "forceCommunity:section",
-      "id" : "969b83fc-21e0-4528-a948-b08cd269aa6f",
+      "id" : "5d28e399-0009-4aea-a95b-9c0893f16ecd",
       "regions" : [ {
         "components" : [ {
           "componentAttributes" : {
-            "richTextValue" : "<p style=\"text-align: center;\"><span style=\"font-size: 16px; font-family: verdana;\">Undersøkelsen for denne henvendelsen er allerede fullført.</span></p>"
+            "richTextValue" : "<p style=\"text-align: center;\"><span style=\"font-size: 16px; font-family: verdana;\">Denne undersøkelsen er allerede besvart.</span></p>"
           },
           "componentName" : "forceCommunity:richTextInline",
-          "id" : "90856668-a6cb-4bc1-b62b-9854e9131501",
+          "id" : "cb9c8534-bf14-403b-8a53-3c594c942155",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
-        "id" : "010f328f-2bba-4465-8084-e5ccc1e7dba3",
+        "id" : "be14826a-65db-42f9-ac4f-0288ef55d994",
         "regionLabel" : "Column 1",
         "regionName" : "1",
         "renditionMap" : { },
@@ -45,7 +45,7 @@
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "6d35f480-d6f7-462a-8c4c-c5c88ba95457",
+    "id" : "e188a633-dd89-49e1-a041-ee0860a159f7",
     "regionName" : "content",
     "type" : "region"
   }, {
@@ -56,11 +56,11 @@
         "title" : "completed"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "93e87924-e9ba-49ef-89ca-6646f2a35f9e",
+      "id" : "f46711ce-171d-47f0-9a7c-694235e0e0d4",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "7ba5eaf2-c2a3-4c5f-8a9f-df705b8ed3bd",
+    "id" : "f5f97c62-9d77-4018-aa0a-bbcebb042598",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
