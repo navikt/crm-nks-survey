@@ -1,0 +1,70 @@
+{
+  "appPageId" : "808c363d-4779-436d-bc9c-7f0d3ffca105",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "9e1ccf00-3b00-4cad-8a25-5a071d8b2ae5",
+  "label" : "completed",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "960f84c2-e21a-49d5-bf24-8bc095b75fed",
+          "columns" : [ {
+            "UUID" : "432f0fa1-adb6-411f-96a0-32aa6f76fc31",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "960f84c2-e21a-49d5-bf24-8bc095b75fed",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-family: verdana; font-size: 16px;\">Denne undersøkelsen er allerede besvart.</strong></p>"
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "4928eae4-fbbb-44e3-8e89-2f96a696dca3",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "432f0fa1-adb6-411f-96a0-32aa6f76fc31",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "bbff3d79-804d-4802-a383-a1d352915917",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "completed"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "999c5ccc-2428-4bbb-8cf0-74314283bef5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b548a94a-d4b0-4731-8c68-ab2b8502aa42",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-completed"
+}
