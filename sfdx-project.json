@@ -5,10 +5,8 @@
             "default": true,
             "package": "crm-nks-survey",
             "versionName": "ver 0.1",
-            "versionNumber": "0.6.0.NEXT",
-            "dependencies": [
-                
-            ]
+            "versionNumber": "0.7.0.NEXT",
+            "dependencies": []
         }
     ],
     "namespace": "",
