@@ -100,7 +100,7 @@ public with sharing class NKS_SurveyController {
             status = 'Started';
         }
         try {
-            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
+            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Case__c = :caseId LIMIT 1]?.ResponseStatus;
         } catch (Exception e) {
             System.debug(
                 'The following exception has occurred while gettting ResponseStatus for Case ' +
