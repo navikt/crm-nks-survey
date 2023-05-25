@@ -26,10 +26,12 @@ public with sharing class NKS_SurveyController {
 
             SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
-            si.Name = caseId;
+            si.SurveyId = survey.Id;
+            si.Name = 'NKS Survey';
+            si.Case__c = caseId;
             si.OptionsAllowGuestUserResponse = true;
             si.OptionsCollectAnonymousResponse = true;
-            si.SurveyId = survey.Id;
+           
             if (!Test.isRunningTest()) {
                 insert si;
             }
