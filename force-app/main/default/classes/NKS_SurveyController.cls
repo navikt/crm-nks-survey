@@ -19,7 +19,7 @@ public with sharing class NKS_SurveyController {
 
         try {
             // check if user has received SurveyLink for current Case
-            List<SurveyInvitation> surveyInvitations = [SELECT Id FROM SurveyInvitation WHERE Name = :caseId];
+            List<SurveyInvitation> surveyInvitations = [SELECT Id FROM SurveyInvitation WHERE Case__c = :caseId];
             if (surveyInvitations.size() > 0) {
                 throw new SurveyException('A Survey Invitation already exists for this case.');
             }
