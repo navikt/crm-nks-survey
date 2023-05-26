@@ -19,17 +19,19 @@ public with sharing class NKS_SurveyController {
 
         try {
             // check if user has received SurveyLink for current Case
-            List<SurveyInvitation> surveyInvitations = [SELECT Id FROM SurveyInvitation WHERE Name = :caseId];
+            List<SurveyInvitation> surveyInvitations = [SELECT Id FROM SurveyInvitation WHERE Case__c = :caseId];
             if (surveyInvitations.size() > 0) {
                 throw new SurveyException('A Survey Invitation already exists for this case.');
             }
 
             SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
-            si.Name = caseId;
+            si.SurveyId = survey.Id;
+            si.Name = 'NKS Survey';
+            si.Case__c = caseId;
             si.OptionsAllowGuestUserResponse = true;
             si.OptionsCollectAnonymousResponse = true;
-            si.SurveyId = survey.Id;
+           
             if (!Test.isRunningTest()) {
                 insert si;
             }
@@ -98,7 +100,7 @@ public with sharing class NKS_SurveyController {
             status = 'Started';
         }
         try {
-            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Name = :caseId LIMIT 1]?.ResponseStatus;
+            status = [SELECT Id, ResponseStatus FROM SurveyInvitation WHERE Case__c = :caseId LIMIT 1]?.ResponseStatus;
         } catch (Exception e) {
             System.debug(
                 'The following exception has occurred while gettting ResponseStatus for Case ' +
