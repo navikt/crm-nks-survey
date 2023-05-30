@@ -58,7 +58,7 @@ public with sharing class NKS_SurveyController {
      * @param List<SurveyInvocableParameters> parametersList
      * @return List<String> survey link
      */
-    @invocableMethod(label='Generate SurveyInvitationLink')
+    @invocableMethod(label='Generate SurveyInvitation')
     public static List<Id> generateSurveyInvitation(List<SurveyInvocableParameters> parametersList) {
         List<Id> surveyInvitationIds = new List<Id>();
         try {
