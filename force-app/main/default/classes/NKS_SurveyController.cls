@@ -48,7 +48,7 @@ public with sharing class NKS_SurveyController {
      * @param SurveyInvocableParameters parameters
      * @return String SurveyInvitationLink
      */
-    public static String invokeCreateSurveyInvitation(SurveyInvocableParameters parameters) {
+    public static Id invokeCreateSurveyInvitation(SurveyInvocableParameters parameters) {
         return createSurveyInvitation(parameters.surveyDeveloperName, parameters.caseId);
     }
 
@@ -59,17 +59,17 @@ public with sharing class NKS_SurveyController {
      * @return List<String> survey link
      */
     @invocableMethod(label='Generate SurveyInvitationLink')
-    public static List<String> generateSurveyLink(List<SurveyInvocableParameters> parametersList) {
-        List<String> surveyLinks = new List<String>();
+    public static List<Id> generateSurveyInvitation(List<SurveyInvocableParameters> parametersList) {
+        List<Id> surveyInvitationIds = new List<Id>();
         try {
             for (Integer i = 0; i < parametersList.size(); i++) {
-                String surveyLink = invokeCreateSurveyInvitation(parametersList[i]);
-                surveyLinks.add(surveyLink);
+                Id siId = invokeCreateSurveyInvitation(parametersList[i]);
+                surveyInvitationIds.add(siId);
             }
         } catch (Exception e) {
             System.debug('Problem creating SurveyInvitationLink: ' + e.getMessage());
         }
-        return surveyLinks;
+        return surveyInvitationIds;
     }
 
     /**
