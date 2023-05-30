@@ -7,10 +7,10 @@ public with sharing class NKS_SurveyController {
      * @return String surveyUrl
      */
     @AuraEnabled
-    public static String createSurveyInvitation(String developerName, Id caseId) {
+    public static Id createSurveyInvitation(String developerName, Id caseId) {
         Id communityId;
         Survey survey = new Survey();
-        String surveyUrl = '';
+        SurveyInvitation si = new SurveyInvitation();
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
@@ -21,10 +21,10 @@ public with sharing class NKS_SurveyController {
             // check if user has received SurveyLink for current Case
             List<SurveyInvitation> surveyInvitations = [SELECT Id FROM SurveyInvitation WHERE Case__c = :caseId];
             if (surveyInvitations.size() > 0) {
-                throw new SurveyException('A Survey Invitation already exists for this case.');
+                System.debug('A Survey Invitation already exists for this case.');
+                return null;
+               
             }
-
-            SurveyInvitation si = new SurveyInvitation();
             si.CommunityId = communityId;
             si.SurveyId = survey.Id;
             si.Name = 'NKS Survey';
@@ -35,26 +35,11 @@ public with sharing class NKS_SurveyController {
             if (!Test.isRunningTest()) {
                 insert si;
             }
-
-            SurveyInvitation sInv = new surveyInvitation();
-            if (!Test.isRunningTest()) {
-                sInv = [SELECT Id, UUID FROM SurveyInvitation WHERE Id = :si.Id];
-            }
-            String uniqueSInvId = sInv.UUID;
-            surveyUrl =
-                getBaseURL() +
-                'survey/runtimeApp.app?invitationId=' +
-                sInv.Id +
-                '&surveyName=' +
-                developerName +
-                '&UUID=' +
-                uniqueSInvId;
-            System.debug('survey url' + JSON.serialize(surveyUrl));
         } catch (Exception e) {
             System.debug('The following exception has occurred while creating SurveyInvitation: ' + e.getMessage());
             //throw new SurveyException('An error has occurred while creating SurveyInvitation');
-        }
-        return surveyUrl;
+        } 
+        return si.Id;
     }
 
     /**
