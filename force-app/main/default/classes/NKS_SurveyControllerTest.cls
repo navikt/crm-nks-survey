@@ -17,12 +17,12 @@ public with sharing class NKS_SurveyControllerTest {
         parameters.caseId = caseId;
         List<NKS_SurveyController.SurveyInvocableParameters> parametersList = new List<NKS_SurveyController.SurveyInvocableParameters>();
         parametersList.add(parameters);
-        List<String> surveyLinks = new List<String>();
+        List<Id> surveyIds = new List<Id>();
 
         // Test creating a survey invitation
         Test.startTest();
         try {
-            surveyLinks = NKS_SurveyController.generateSurveyLink(parametersList);
+            surveyIds = NKS_SurveyController.generateSurveyInvitation(parametersList);
         } catch (Exception e) {
             // Ensure that the correct exception message is returned
             System.assertEquals(
@@ -33,7 +33,7 @@ public with sharing class NKS_SurveyControllerTest {
             System.assertEquals('An error has occurred while creating SurveyInvitation', e.getMessage());
         }
         Test.stopTest();
-        System.assertNotEquals(0, surveyLinks.size(), 'Survey URL should not be null.');
+        System.assertNotEquals(0, surveyIds.size(), 'Survey URL should not be null.');
     }
 
     /**
