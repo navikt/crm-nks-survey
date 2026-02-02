@@ -14,7 +14,7 @@ public with sharing class NKS_SurveyController {
 
         if (!Test.isRunningTest()) {
             communityId = [SELECT Id FROM Network WHERE Name = 'TilbakemeldingAura'].Id;
-            survey = [SELECT Id, DeveloperName FROM Survey WHERE DeveloperName = :developerName];
+            survey = [SELECT Id FROM Survey WHERE DeveloperName = :developerName];
         }
 
         try {
