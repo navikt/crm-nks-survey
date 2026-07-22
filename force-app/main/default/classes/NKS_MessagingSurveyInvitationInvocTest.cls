@@ -1,13 +1,27 @@
 @isTest
 private class NKS_MessagingSurveyInvitationInvocTest {
+    private static final Id TEST_COMMUNITY_ID = '0DB000000000001AAA';
+    private static final Id TEST_SURVEY_ID = '0K9000000000001AAA';
+
+    private static void resetSurveyControllerTestState() {
+        NKS_SurveyController.testCommunityId = null;
+        NKS_SurveyController.testSurveyId = null;
+        NKS_SurveyController.testBaseUrl = null;
+        NKS_SurveyController.testSkipInsert = false;
+        NKS_SurveyController.testResponseStatus = null;
+        NKS_SurveyController.testForceInvitationQueryException = false;
+    }
+
     private static Id createMessagingSession() {
         User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
         Id sessionId;
 
         System.runAs(thisUser) {
+            String uniqueValue = String.valueOf(Datetime.now().getTime());
+
             MessagingChannel channel = new MessagingChannel(
-                MasterLabel = 'MsgChannel' + String.valueOf(Datetime.now().getTime()),
-                DeveloperName = 'MsgChannel' + String.valueOf(Datetime.now().getTime()),
+                MasterLabel = 'MsgChannel' + uniqueValue,
+                DeveloperName = 'MsgChannel' + uniqueValue,
                 IsActive = true,
                 MessageType = 'Text',
                 MessagingPlatformKey = 'PlatformKey' + String.valueOf(Math.abs(Crypto.getRandomInteger()))
@@ -37,6 +51,8 @@ private class NKS_MessagingSurveyInvitationInvocTest {
 
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputsNull() {
+        resetSurveyControllerTestState();
+
         Test.startTest();
         try {
             NKS_MessagingSurveyInvitationInvocable.generateSurveyInvitation(null);
@@ -49,6 +65,8 @@ private class NKS_MessagingSurveyInvitationInvocTest {
 
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputsEmpty() {
+        resetSurveyControllerTestState();
+
         Test.startTest();
         try {
             NKS_MessagingSurveyInvitationInvocable.generateSurveyInvitation(
@@ -63,6 +81,8 @@ private class NKS_MessagingSurveyInvitationInvocTest {
 
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputRowNull() {
+        resetSurveyControllerTestState();
+
         List<NKS_MessagingSurveyInvitationInvocable.Input> inputs = new List<NKS_MessagingSurveyInvitationInvocable.Input>{
             null
         };
@@ -79,10 +99,13 @@ private class NKS_MessagingSurveyInvitationInvocTest {
 
     @isTest
     static void testGenerateSurveyInvitationReturnsSingleResult() {
+        resetSurveyControllerTestState();
+
         Id sessionId = createMessagingSession();
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         NKS_MessagingSurveyInvitationInvocable.Input inputRow = new NKS_MessagingSurveyInvitationInvocable.Input();
         inputRow.sessionId = (String) sessionId;
@@ -100,11 +123,14 @@ private class NKS_MessagingSurveyInvitationInvocTest {
 
     @isTest
     static void testGenerateSurveyInvitationReturnsMultipleResults() {
+        resetSurveyControllerTestState();
+
         Id sessionId1 = createMessagingSession();
         Id sessionId2 = createMessagingSession();
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         NKS_MessagingSurveyInvitationInvocable.Input inputRow1 = new NKS_MessagingSurveyInvitationInvocable.Input();
         inputRow1.sessionId = (String) sessionId1;

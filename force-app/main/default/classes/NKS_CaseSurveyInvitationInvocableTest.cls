@@ -1,7 +1,21 @@
 @isTest
 private class NKS_CaseSurveyInvitationInvocableTest {
+    private static final Id TEST_COMMUNITY_ID = '0DB000000000001AAA';
+    private static final Id TEST_SURVEY_ID = '0K9000000000001AAA';
+
+    private static void resetSurveyControllerTestState() {
+        NKS_SurveyController.testCommunityId = null;
+        NKS_SurveyController.testSurveyId = null;
+        NKS_SurveyController.testBaseUrl = null;
+        NKS_SurveyController.testSkipInsert = false;
+        NKS_SurveyController.testResponseStatus = null;
+        NKS_SurveyController.testForceInvitationQueryException = false;
+    }
+
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputsNull() {
+        resetSurveyControllerTestState();
+
         Test.startTest();
         try {
             NKS_CaseSurveyInvitationInvocable.generateSurveyInvitation(null);
@@ -14,6 +28,8 @@ private class NKS_CaseSurveyInvitationInvocableTest {
 
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputsEmpty() {
+        resetSurveyControllerTestState();
+
         Test.startTest();
         try {
             NKS_CaseSurveyInvitationInvocable.generateSurveyInvitation(
@@ -28,6 +44,8 @@ private class NKS_CaseSurveyInvitationInvocableTest {
 
     @isTest
     static void testGenerateSurveyInvitationThrowsWhenInputRowNull() {
+        resetSurveyControllerTestState();
+
         List<NKS_CaseSurveyInvitationInvocable.Input> inputs = new List<NKS_CaseSurveyInvitationInvocable.Input>{
             null
         };
@@ -44,11 +62,14 @@ private class NKS_CaseSurveyInvitationInvocableTest {
 
     @isTest
     static void testGenerateSurveyInvitationReturnsSingleResult() {
+        resetSurveyControllerTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         NKS_CaseSurveyInvitationInvocable.Input inputRow = new NKS_CaseSurveyInvitationInvocable.Input();
         inputRow.caseId = testCase.Id;
@@ -61,17 +82,20 @@ private class NKS_CaseSurveyInvitationInvocableTest {
         Test.stopTest();
 
         Assert.areEqual(1, results.size());
-        Assert.areEqual(null, results[0]);
+        Assert.isNull(results[0]);
     }
 
     @isTest
     static void testGenerateSurveyInvitationReturnsMultipleResults() {
+        resetSurveyControllerTestState();
+
         Case testCase1 = new Case(Subject = 'Test Subject 1', Status = 'New');
         Case testCase2 = new Case(Subject = 'Test Subject 2', Status = 'New');
         insert new List<Case>{ testCase1, testCase2 };
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         NKS_CaseSurveyInvitationInvocable.Input inputRow1 = new NKS_CaseSurveyInvitationInvocable.Input();
         inputRow1.caseId = testCase1.Id;
