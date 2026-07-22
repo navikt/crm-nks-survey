@@ -16,7 +16,8 @@
         "LiveAgent",
         "LightningServiceConsole",
         "FIELDSERVICE:1",
-        "SurveyAdvancedFeatures"
+        "SurveyAdvancedFeatures",
+        "LiveMessage"
     ],
     "country": "NO",
     "language": "en_US",
@@ -61,6 +62,9 @@
         "surveySettings": {
             "enableSurvey": true,
             "enableSurveyOwnerCanManageResponse": true
+        },
+        "liveMessageSettings": {
+            "enableLiveMessage": true
         }
     }
 }
