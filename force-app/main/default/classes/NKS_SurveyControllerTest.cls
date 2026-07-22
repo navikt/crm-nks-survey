@@ -1,13 +1,27 @@
 @isTest
 private class NKS_SurveyControllerTest {
+    private static final Id TEST_COMMUNITY_ID = '0DB000000000001AAA';
+    private static final Id TEST_SURVEY_ID = '0K9000000000001AAA';
+
+    private static void resetTestState() {
+        NKS_SurveyController.testCommunityId = null;
+        NKS_SurveyController.testSurveyId = null;
+        NKS_SurveyController.testBaseUrl = null;
+        NKS_SurveyController.testSkipInsert = false;
+        NKS_SurveyController.testResponseStatus = null;
+        NKS_SurveyController.testForceInvitationQueryException = false;
+    }
+
     private static Id createMessagingSession() {
         User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
         Id sessionId;
 
         System.runAs(thisUser) {
+            String uniqueValue = String.valueOf(Datetime.now().getTime());
+
             MessagingChannel channel = new MessagingChannel(
-                MasterLabel = 'TestChannel' + String.valueOf(Datetime.now().getTime()),
-                DeveloperName = 'TestChannel' + String.valueOf(Datetime.now().getTime()),
+                MasterLabel = 'TestChannel' + uniqueValue,
+                DeveloperName = 'TestChannel' + uniqueValue,
                 IsActive = true,
                 MessageType = 'Text',
                 MessagingPlatformKey = 'PlatformKey' + String.valueOf(Math.abs(Crypto.getRandomInteger()))
@@ -37,6 +51,8 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testCreateSurveyInvitationForCaseThrowsWhenDeveloperNameBlank() {
+        resetTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
 
@@ -52,6 +68,8 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testCreateSurveyInvitationForCaseThrowsWhenCaseIdNull() {
+        resetTestState();
+
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForCase('test_survey', null);
@@ -64,58 +82,85 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testCreateSurveyInvitationForCaseResolveCommunityFailure() {
+        resetTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
-
-        NKS_SurveyController.testCommunityId = null;
-        NKS_SurveyController.testSurveyId = null;
-        NKS_SurveyController.testBaseUrl = null;
 
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForCase('missing_survey', testCase.Id);
             Assert.fail('Expected exception was not thrown');
         } catch (Exception e) {
-            Assert.isTrue(e.getMessage().startsWith('Problem resolving community.'));
+            Assert.isTrue(e.getMessage().contains('An error has occurred while creating SurveyInvitation for Case.'));
+            Assert.isTrue(e.getMessage().contains('Problem resolving community.'));
         }
         Test.stopTest();
     }
 
     @isTest
     static void testCreateSurveyInvitationForCaseResolveSurveyFailure() {
+        resetTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = null;
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
 
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForCase('missing_survey', testCase.Id);
             Assert.fail('Expected exception was not thrown');
         } catch (Exception e) {
-            Assert.isTrue(e.getMessage().startsWith('Problem resolving survey.'));
+            Assert.isTrue(e.getMessage().contains('An error has occurred while creating SurveyInvitation for Case.'));
+            Assert.isTrue(e.getMessage().contains('Problem resolving survey.'));
         }
         Test.stopTest();
     }
 
     @isTest
     static void testCreateSurveyInvitationForCaseReturnsNullInTestModeWhenNoExistingInvitation() {
+        resetTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         Test.startTest();
         Id result = NKS_SurveyController.createSurveyInvitationForCase('test_survey', testCase.Id);
         Test.stopTest();
 
-        System.assertEquals(null, result);
+        Assert.areEqual(null, result);
+    }
+
+    @isTest
+    static void testCreateSurveyInvitationForCaseCatchIsCoveredWhenInvitationQueryFails() {
+        resetTestState();
+
+        Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
+        insert testCase;
+
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testForceInvitationQueryException = true;
+
+        Test.startTest();
+        try {
+            NKS_SurveyController.createSurveyInvitationForCase('test_survey', testCase.Id);
+            Assert.fail('Expected exception was not thrown');
+        } catch (Exception e) {
+            Assert.isTrue(e.getMessage().contains('An error has occurred while creating SurveyInvitation for Case.'));
+        }
+        Test.stopTest();
     }
 
     @isTest
     static void testCreateSurveyInvitationForMessagingSessionThrowsWhenDeveloperNameBlank() {
+        resetTestState();
+
         Id sessionId = createMessagingSession();
 
         Test.startTest();
@@ -130,6 +175,8 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testCreateSurveyInvitationForMessagingSessionThrowsWhenSessionIdNull() {
+        resetTestState();
+
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForMessagingSession('test_survey', null);
@@ -142,44 +189,53 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testCreateSurveyInvitationForMessagingSessionResolveCommunityFailure() {
-        Id sessionId = createMessagingSession();
+        resetTestState();
 
-        NKS_SurveyController.testCommunityId = null;
-        NKS_SurveyController.testSurveyId = null;
+        Id sessionId = createMessagingSession();
 
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForMessagingSession('missing_survey', sessionId);
             Assert.fail('Expected exception was not thrown');
         } catch (Exception e) {
-            Assert.isTrue(e.getMessage().startsWith('Problem resolving community.'));
+            Assert.isTrue(
+                e.getMessage().contains('An error has occurred while creating SurveyInvitation for MessagingSession.')
+            );
+            Assert.isTrue(e.getMessage().contains('Problem resolving community.'));
         }
         Test.stopTest();
     }
 
     @isTest
     static void testCreateSurveyInvitationForMessagingSessionResolveSurveyFailure() {
+        resetTestState();
+
         Id sessionId = createMessagingSession();
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = null;
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
 
         Test.startTest();
         try {
             NKS_SurveyController.createSurveyInvitationForMessagingSession('missing_survey', sessionId);
             Assert.fail('Expected exception was not thrown');
         } catch (Exception e) {
-            Assert.isTrue(e.getMessage().startsWith('Problem resolving survey.'));
+            Assert.isTrue(
+                e.getMessage().contains('An error has occurred while creating SurveyInvitation for MessagingSession.')
+            );
+            Assert.isTrue(e.getMessage().contains('Problem resolving survey.'));
         }
         Test.stopTest();
     }
 
     @isTest
     static void testCreateSurveyInvitationForMessagingSessionReturnsNullInTestMode() {
+        resetTestState();
+
         Id sessionId = createMessagingSession();
 
-        NKS_SurveyController.testCommunityId = '0DB000000000001';
-        NKS_SurveyController.testSurveyId = '0K9000000000001';
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testSkipInsert = true;
 
         Test.startTest();
         Id result = NKS_SurveyController.createSurveyInvitationForMessagingSession('test_survey', sessionId);
@@ -189,7 +245,31 @@ private class NKS_SurveyControllerTest {
     }
 
     @isTest
+    static void testCreateSurveyInvitationForMessagingSessionCatchIsCoveredWhenInvitationQueryFails() {
+        resetTestState();
+
+        Id sessionId = createMessagingSession();
+
+        NKS_SurveyController.testCommunityId = TEST_COMMUNITY_ID;
+        NKS_SurveyController.testSurveyId = TEST_SURVEY_ID;
+        NKS_SurveyController.testForceInvitationQueryException = true;
+
+        Test.startTest();
+        try {
+            NKS_SurveyController.createSurveyInvitationForMessagingSession('test_survey', sessionId);
+            Assert.fail('Expected exception was not thrown');
+        } catch (Exception e) {
+            Assert.isTrue(
+                e.getMessage().contains('An error has occurred while creating SurveyInvitation for MessagingSession.')
+            );
+        }
+        Test.stopTest();
+    }
+
+    @isTest
     static void testCheckSurveyResponseReturnsFalseWhenNoInvitation() {
+        resetTestState();
+
         Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
         insert testCase;
 
@@ -201,7 +281,41 @@ private class NKS_SurveyControllerTest {
     }
 
     @isTest
+    static void testCheckSurveyResponseReturnsFalseWhenResponseIsStarted() {
+        resetTestState();
+
+        Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
+        insert testCase;
+
+        NKS_SurveyController.testResponseStatus = 'Started';
+
+        Test.startTest();
+        Boolean result = NKS_SurveyController.checkSurveyResponse(testCase.Id);
+        Test.stopTest();
+
+        Assert.areEqual(false, result);
+    }
+
+    @isTest
+    static void testCheckSurveyResponseReturnsTrueWhenResponseIsCompleted() {
+        resetTestState();
+
+        Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
+        insert testCase;
+
+        NKS_SurveyController.testResponseStatus = 'Completed';
+
+        Test.startTest();
+        Boolean result = NKS_SurveyController.checkSurveyResponse(testCase.Id);
+        Test.stopTest();
+
+        Assert.areEqual(true, result);
+    }
+
+    @isTest
     static void testCheckSurveyResponseThrowsWhenCaseIdNull() {
+        resetTestState();
+
         Test.startTest();
         try {
             NKS_SurveyController.checkSurveyResponse(null);
@@ -213,7 +327,28 @@ private class NKS_SurveyControllerTest {
     }
 
     @isTest
+    static void testCheckSurveyResponseCatchIsCoveredWhenQueryFails() {
+        resetTestState();
+
+        Case testCase = new Case(Subject = 'Test Subject', Status = 'New');
+        insert testCase;
+
+        NKS_SurveyController.testForceInvitationQueryException = true;
+
+        Test.startTest();
+        try {
+            NKS_SurveyController.checkSurveyResponse(testCase.Id);
+            Assert.fail('Expected exception was not thrown');
+        } catch (Exception e) {
+            Assert.isTrue(e.getMessage().startsWith('Problem getting ResponseStatus for Case.'));
+        }
+        Test.stopTest();
+    }
+
+    @isTest
     static void testGetBaseURLReturnsOverrideValue() {
+        resetTestState();
+
         NKS_SurveyController.testBaseUrl = 'https://example.test';
 
         Test.startTest();
@@ -225,7 +360,7 @@ private class NKS_SurveyControllerTest {
 
     @isTest
     static void testGetBaseURLThrowsSurveyExceptionWhenMissingSite() {
-        NKS_SurveyController.testBaseUrl = null;
+        resetTestState();
 
         Test.startTest();
         try {
